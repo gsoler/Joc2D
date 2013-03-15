@@ -44,9 +44,6 @@ bool cGame::Init()
 	//Shot initialization
 	res = Data.LoadImage(IMG_SHOT,"shot.png",GL_RGBA);
 	if(!res) return false;
-	Shot.SetWidthHeight(7,7);
-
-
 
 	return res;
 }
@@ -94,6 +91,12 @@ bool cGame::Process()
 	else if(keys[GLUT_KEY_DOWN])	Player.MoveDown(Scene.GetMap());
 	if(keys[GLUT_KEY_LEFT])			Player.MoveLeft(Scene.GetMap());
 	else if(keys[GLUT_KEY_RIGHT])	Player.MoveRight(Scene.GetMap());
+	if(keys[' '])					{
+		cShot Shot;
+		Shot.SetWidthHeight(7,7);
+		Shot.SetState(STATE_SHOTING);
+		Shots.push_back(Shot);
+	}
 	else Player.Stop();
 	
 	
