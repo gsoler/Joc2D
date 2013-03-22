@@ -135,29 +135,72 @@ void cBicho::DrawRect(int tex_id,float xo,float yo,float xf,float yf)
 	glDisable(GL_TEXTURE_2D);
 }
 
-void cBicho::MoveLeft(int *map)
+void cBicho::MoveUp(int *map)
 {
-	int xaux;
-	
-	//Whats next tile?
-	if( (x % TILE_SIZE) == 0)
-	{
-		xaux = x;
-		x -= STEP_LENGTH;
+	int yaux;
 
-		if(CollidesMapWall(map,false))
+	//Whats next tile?
+	if( (y % TILE_SIZE) == 0)
+	{
+		yaux = y;
+		y += STEP_LENGTH;
+
+		if(CollidesMapFloor(map, true))
 		{
-			x = xaux;
-			state = STATE_LOOKLEFT;
+			y = yaux;
+			state = STATE_LOOKUP;
 		}
 	}
 	//Advance, no problem
 	else
 	{
-		x -= STEP_LENGTH;
-		if(state != STATE_WALKLEFT)
+		y += STEP_LENGTH;
+
+		if(state != STATE_WALKUP)
 		{
-			state = STATE_WALKLEFT;
+			state = STATE_WALKUP;
+			seq = 0;
+			delay = 0;
+		}
+	}
+}
+void cBicho::MoveUpRight(int *map)
+{
+	int xaux;
+	int yaux;
+
+	//Whats next tile?
+	if( (x % TILE_SIZE) == 0)
+	{
+		xaux = x;
+		x += STEP_LENGTH/2;
+
+		if(CollidesMapWall(map,true))
+		{
+			x = xaux;
+			state = STATE_LOOKUPRIGHT;
+		}
+	}
+	if( (y % TILE_SIZE) == 0)
+	{
+		yaux = y;
+		y += STEP_LENGTH/2;
+
+		if(CollidesMapWall(map,true))
+		{
+			y = yaux;
+			state = STATE_LOOKUPRIGHT;
+		}
+	}
+	//Advance, no problem
+	else
+	{
+		x += STEP_LENGTH/2;
+		y += STEP_LENGTH/2;
+
+		if(state != STATE_WALKUPRIGHT)
+		{
+			state = STATE_WALKUPRIGHT;
 			seq = 0;
 			delay = 0;
 		}
@@ -192,30 +235,43 @@ void cBicho::MoveRight(int *map)
 		}
 	}
 }
-void cBicho::MoveUp(int *map)
+void cBicho::MoveDownRight(int *map)
 {
+	int xaux;
 	int yaux;
 
 	//Whats next tile?
+	if( (x % TILE_SIZE) == 0)
+	{
+		xaux = x;
+		x += STEP_LENGTH/2;
+
+		if(CollidesMapWall(map,true))
+		{
+			x = xaux;
+			state = STATE_LOOKDOWNRIGHT;
+		}
+	}
 	if( (y % TILE_SIZE) == 0)
 	{
 		yaux = y;
-		y += STEP_LENGTH;
+		y -= STEP_LENGTH/2;
 
-		if(CollidesMapFloor(map, true))
+		if(CollidesMapWall(map,false))
 		{
 			y = yaux;
-			state = STATE_LOOKRIGHT;
+			state = STATE_LOOKDOWNRIGHT;
 		}
 	}
 	//Advance, no problem
 	else
 	{
-		y += STEP_LENGTH;
+		x += STEP_LENGTH/2;
+		y -= STEP_LENGTH/2;
 
-		if(state != STATE_WALKRIGHT)
+		if(state != STATE_WALKDOWNRIGHT)
 		{
-			state = STATE_WALKRIGHT;
+			state = STATE_WALKDOWNRIGHT;
 			seq = 0;
 			delay = 0;
 		}
@@ -234,7 +290,7 @@ void cBicho::MoveDown(int *map)
 		if(CollidesMapFloor(map, true))
 		{
 			y = yaux;
-			state = STATE_LOOKLEFT;
+			state = STATE_LOOKDOWN;
 		}
 	}
 	//Advance, no problem
@@ -242,9 +298,119 @@ void cBicho::MoveDown(int *map)
 	{
 		y -= STEP_LENGTH;
 
+		if(state != STATE_WALKDOWN)
+		{
+			state = STATE_WALKDOWN;
+			seq = 0;
+			delay = 0;
+		}
+	}
+}
+void cBicho::MoveDownLeft(int *map)
+{
+	int xaux;
+	int yaux;
+	
+	//Whats next tile?
+	if( (x % TILE_SIZE) == 0)
+	{
+		xaux = x;
+		x -= STEP_LENGTH/2;
+
+		if(CollidesMapWall(map,false))
+		{
+			x = xaux;
+			state = STATE_LOOKDOWNLEFT;
+		}
+	}
+	if( (y % TILE_SIZE) == 0)
+	{
+		yaux = y;
+		y -= STEP_LENGTH/2;
+
+		if(CollidesMapWall(map,false))
+		{
+			y = yaux;
+			state = STATE_LOOKDOWNLEFT;
+		}
+	}
+	//Advance, no problem
+	else
+	{
+		x -= STEP_LENGTH/2;
+		y -= STEP_LENGTH/2;
+		if(state != STATE_WALKDOWNLEFT)
+		{
+			state = STATE_WALKDOWNLEFT;
+			seq = 0;
+			delay = 0;
+		}
+	}
+}
+void cBicho::MoveLeft(int *map)
+{
+	int xaux;
+	
+	//Whats next tile?
+	if( (x % TILE_SIZE) == 0)
+	{
+		xaux = x;
+		x -= STEP_LENGTH;
+
+		if(CollidesMapWall(map,false))
+		{
+			x = xaux;
+			state = STATE_LOOKLEFT;
+		}
+	}
+	//Advance, no problem
+	else
+	{
+		x -= STEP_LENGTH;
 		if(state != STATE_WALKLEFT)
 		{
 			state = STATE_WALKLEFT;
+			seq = 0;
+			delay = 0;
+		}
+	}
+}
+void cBicho::MoveUpLeft(int *map)
+{
+	int xaux;
+	int yaux;
+	
+	//Whats next tile?
+	if( (x % TILE_SIZE) == 0)
+	{
+		xaux = x;
+		x -= STEP_LENGTH/2;
+
+		if(CollidesMapWall(map,false))
+		{
+			x = xaux;
+			state = STATE_LOOKUPLEFT;
+		}
+	}
+	if( (y % TILE_SIZE) == 0)
+	{
+		yaux = y;
+		y += STEP_LENGTH/2;
+
+		if(CollidesMapWall(map,true))
+		{
+			y = yaux;
+			state = STATE_LOOKUPLEFT;
+		}
+	}
+	//Advance, no problem
+	else
+	{
+		x -= STEP_LENGTH/2;
+		y += STEP_LENGTH/2;
+		if(state != STATE_WALKUPLEFT)
+		{
+			state = STATE_WALKUPLEFT;
 			seq = 0;
 			delay = 0;
 		}
@@ -254,8 +420,14 @@ void cBicho::Stop()
 {
 	switch(state)
 	{
-		case STATE_WALKLEFT:	state = STATE_LOOKLEFT;		break;
-		case STATE_WALKRIGHT:	state = STATE_LOOKRIGHT;	break;
+		case STATE_WALKUP:			state = STATE_LOOKUP;			break;
+		case STATE_WALKUPRIGHT:		state = STATE_LOOKUPRIGHT;		break;
+		case STATE_WALKRIGHT:		state = STATE_LOOKRIGHT;		break;
+		case STATE_WALKDOWNRIGHT:	state = STATE_LOOKDOWNRIGHT;	break;
+		case STATE_WALKDOWN:		state = STATE_LOOKDOWN;			break;
+		case STATE_WALKDOWNLEFT:	state = STATE_LOOKDOWNLEFT;		break;
+		case STATE_WALKLEFT:		state = STATE_LOOKLEFT;			break;
+		case STATE_WALKUPLEFT:		state = STATE_LOOKUPLEFT;		break;
 	}
 }
 /*void cBicho::Jump(int *map)

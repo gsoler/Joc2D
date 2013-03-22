@@ -8,10 +8,22 @@
 #define JUMP_HEIGHT		96
 #define JUMP_STEP		4
 
-#define STATE_LOOKLEFT		0
-#define STATE_LOOKRIGHT		1
-#define STATE_WALKLEFT		2
-#define STATE_WALKRIGHT		3
+#define STATE_LOOKUP		0
+#define STATE_LOOKUPRIGHT	1
+#define STATE_LOOKRIGHT		2
+#define STATE_LOOKDOWNRIGHT	3
+#define STATE_LOOKDOWN		4
+#define STATE_LOOKDOWNLEFT	5
+#define STATE_LOOKLEFT		6
+#define STATE_LOOKUPLEFT	7
+#define STATE_WALKUP		8
+#define STATE_WALKUPRIGHT	9
+#define STATE_WALKRIGHT		10
+#define STATE_WALKDOWNRIGHT	11
+#define STATE_WALKDOWN		12
+#define STATE_WALKDOWNLEFT	13
+#define STATE_WALKLEFT		14
+#define STATE_WALKUPLEFT	15
 
 class cRect
 {
@@ -39,12 +51,15 @@ public:
 	bool CollidesMapFloor(int *map,bool up);
 	void GetArea(cRect *rc);
 	void DrawRect(int tex_id,float xo,float yo,float xf,float yf);
-
-	void MoveRight(int *map);
-	void MoveLeft(int *map);
+	
 	void MoveUp(int *map);
+	void MoveUpRight(int *map);
+	void MoveRight(int *map);
+	void MoveDownRight(int *map);
 	void MoveDown(int *map);
-	//void Jump(int *map);
+	void MoveDownLeft(int *map);
+	void MoveLeft(int *map);
+	void MoveUpLeft(int *map);
 	void Stop();
 	//void Logic(int *map);
 

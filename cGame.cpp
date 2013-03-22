@@ -87,17 +87,55 @@ bool cGame::Process()
 	//Process Input
 	if(keys[27])	res=false;
 	
-	if(keys[GLUT_KEY_UP])			Player.MoveUp(Scene.GetMap());
-	else if(keys[GLUT_KEY_DOWN])	Player.MoveDown(Scene.GetMap());
-	if(keys[GLUT_KEY_LEFT])			Player.MoveLeft(Scene.GetMap());
-	else if(keys[GLUT_KEY_RIGHT])	Player.MoveRight(Scene.GetMap());
-	if(keys[' '])					{
-		cShot Shot;
-		Shot.SetWidthHeight(7,7);
-		Shot.SetState(STATE_SHOTING);
-		Shots.push_back(Shot);
+	if(keys[GLUT_KEY_UP] && keys[GLUT_KEY_LEFT]) {
+		Player.MoveUpLeft(Scene.GetMap());
+	}
+	else if(keys[GLUT_KEY_UP] && keys[GLUT_KEY_RIGHT]) {
+		Player.MoveUpRight(Scene.GetMap());
+	}
+	else if(keys[GLUT_KEY_UP]) {
+		Player.MoveUp(Scene.GetMap());
+	}
+	else if(keys[GLUT_KEY_DOWN] && keys[GLUT_KEY_LEFT]) {
+		Player.MoveDownLeft(Scene.GetMap());
+	}
+	else if(keys[GLUT_KEY_DOWN] && keys[GLUT_KEY_RIGHT]) {
+		Player.MoveDownRight(Scene.GetMap());
+	}
+	else if(keys[GLUT_KEY_DOWN]) {
+		Player.MoveDown(Scene.GetMap());
+	}
+	if(keys[GLUT_KEY_LEFT])			{
+		Player.MoveLeft(Scene.GetMap());
+	}
+	else if(keys[GLUT_KEY_RIGHT])	{
+		Player.MoveRight(Scene.GetMap());
 	}
 	else Player.Stop();
+
+	if(Direction == 32)
+		Direction = 0;
+	
+	int t1, t2;
+
+	
+	if(keys[' '])					{
+		
+		//t1 = glutGet(GLUT_ELAPSED_TIME);
+		int x, y;
+		Player.GetPosition(&x,&y);
+		cShot Shot = cShot(x + TILE_SIZE/2, y + TILE_SIZE/2); //Inicialitzem el shot a la posicio del jugador, en el centre d l'sprite
+		Shot.SetWidthHeight(7,7);
+		Shot.SetState(STATE_SHOTING);
+		Shot.SetDirection(Player.GetState());
+		Shots.push_back(Shot);
+
+		
+		/*do { t2 = glutGet(GLUT_ELAPSED_TIME);
+		} while (t2 - t1 < 50); //el 20 es pot canviar x mes rapid o mes lent
+		*/
+	}
+
 	
 	
 	//Game Logic
@@ -126,8 +164,14 @@ void cGame::Render()
 
 	Scene.Draw(Data.GetID(IMG_BLOCKS));
 	Player.Draw(Data.GetID(IMG_PLAYER));
-	for(int i = 0; i < Shots.size(); ++i)
-		Shots[i].Draw();
+	auxShots = Shots;
+	Shots.clear();
+	for(int i = 0; i < auxShots.size(); ++i){
+		if(auxShots[i].GetState() == STATE_SHOTING){
+			auxShots[i].Draw(IMG_SHOT);
+			Shots.push_back(auxShots[i]);
+		}
+	}
 
 	glutSwapBuffers();
 }

@@ -1,21 +1,29 @@
 #pragma once
 
+#include "cBicho.h"
+
 #define STATE_SHOT_END 0
 #define STATE_SHOTING 1
 
-class cShot
+class cShot : public cBicho
 {
 public:
-	cShot(void);
+	cShot(int x, int y);
 	~cShot(void);
-	void Draw();
+	void Draw(int tex_id);
 	void SetWidthHeight(int width, int height);
 	void SetState(int state);
+	int GetState();
+	void SetDirection(int Direction);
 
 private:
 	int x,y;
 	int w,h;
 	int state;
-	int dx,dy;
+
+	struct {
+		float x;
+		float y;
+	} vecDir;
 };
 

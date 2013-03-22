@@ -31,9 +31,11 @@ public:
 
 private:
 	int PosPant;
+	int Direction;
 	unsigned char keys[256];
 	cScene Scene;
 	cPlayer Player;
 	vector<cShot> Shots;
+	vector<cShot> auxShots;
 	cData Data;
 };
