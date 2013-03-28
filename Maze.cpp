@@ -7,7 +7,7 @@
 Maze::Maze(int height, int width, int wallSize, int pathSize)
 {
 	if (width % 2 == 0) ++width;
-	if (height % 2 == 0) ++width;
+	if (height % 2 == 0) ++height;
 
 	this->height = height;
 	this->width = width;
