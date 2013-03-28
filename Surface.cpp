@@ -1,5 +1,5 @@
 #include "Surface.h"
-#include <random>
+//#include <random>
 #include <assert.h>
 
 Surface::Surface(int height, int width)
@@ -20,6 +20,11 @@ double Surface::getZ(int y, int x)
 	return surface[y][x];
 }
 
+double dRand(double min, double max) {
+	double f = rand() / RAND_MAX;
+	return min + f * (max - min);
+}
+
 void Surface::perlinNoise(int r, unsigned int seed)
 {
 	assert(r > 0);
@@ -28,13 +33,16 @@ void Surface::perlinNoise(int r, unsigned int seed)
 	int m = height/r + 2;
 	vector<vector<vec2> > grid(m, vector<vec2>(n));
 
-	default_random_engine generator(seed);
-	uniform_real_distribution<double> distribution(-1.0, 1.0);
+	//using random
+	//default_random_engine generator(seed);
+	//uniform_real_distribution<double> distribution(-1.0, 1.0);
 
 	for (int i = 0; i < m; ++i) {
 		for (int j = 0; j < n; ++j) {
-			grid[i][j].x = distribution(generator);
-			grid[i][j].y = distribution(generator);
+			//grid[i][j].x = distribution(generator);
+			//grid[i][j].y = distribution(generator);
+			grid[i][j].x = dRand(-1.0, 1.0);
+			grid[i][j].y = dRand(-1.0, 1.0);
 			normalizeVec2(grid[i][j]);
 		}
 	}
