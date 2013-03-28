@@ -30,11 +30,13 @@ public:
 	void Render();
 
 private:
+	bool secondPlayer;
 	int PosPant;
 	int Direction;
 	unsigned char keys[256];
 	cScene Scene;
 	cPlayer Player;
+	cPlayer Player2;
 	vector<cShot> Shots;
 	vector<cShot> auxShots;
 	cData Data;

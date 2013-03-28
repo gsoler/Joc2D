@@ -41,6 +41,13 @@ bool cGame::Init()
 	Player.SetWidthHeight(32,32);
 	Player.SetState(STATE_LOOKRIGHT);
 
+	//Player2 initialization
+	Player2.SetWidthHeight(32,32);
+	Player2.SetTile(10,1);
+	Player2.SetWidthHeight(32,32);
+	Player2.SetState(STATE_LOOKRIGHT);
+	secondPlayer = false;
+
 	//Shot initialization
 	res = Data.LoadImage(IMG_SHOT,"shot.png",GL_RGBA);
 	if(!res) return false;
@@ -112,16 +119,39 @@ bool cGame::Process()
 		Player.MoveRight(Scene.GetMap());
 	}
 	else Player.Stop();
-
-	if(Direction == 32)
-		Direction = 0;
+	
+	//Player 2
+	if(keys['W'] && keys['A']) {
+		Player2.MoveUpLeft(Scene.GetMap());
+	}
+	else if(keys['W'] && keys['D']) {
+		Player2.MoveUpRight(Scene.GetMap());
+	}
+	else if(keys['W']) {
+		Player2.MoveUp(Scene.GetMap());
+	}
+	else if(keys['S'] && keys['A']) {
+		Player2.MoveDownLeft(Scene.GetMap());
+	}
+	else if(keys['S'] && keys['D']) {
+		Player2.MoveDownRight(Scene.GetMap());
+	}
+	else if(keys['S']) {
+		Player2.MoveDown(Scene.GetMap());
+	}
+	if(keys['A'])			{
+		Player2.MoveLeft(Scene.GetMap());
+	}
+	else if(keys['D'])	{
+		Player2.MoveRight(Scene.GetMap());
+	}
+	else Player2.Stop();
 	
 	int t1, t2;
 
 	
 	if(keys[' '])					{
 		
-		//t1 = glutGet(GLUT_ELAPSED_TIME);
 		int x, y;
 		Player.GetPosition(&x,&y);
 		cShot Shot = cShot(x + TILE_SIZE/2, y + TILE_SIZE/2); //Inicialitzem el shot a la posicio del jugador, en el centre d l'sprite
@@ -130,10 +160,6 @@ bool cGame::Process()
 		Shot.SetDirection(Player.GetState());
 		Shots.push_back(Shot);
 
-		
-		/*do { t2 = glutGet(GLUT_ELAPSED_TIME);
-		} while (t2 - t1 < 50); //el 20 es pot canviar x mes rapid o mes lent
-		*/
 	}
 
 	
@@ -164,6 +190,8 @@ void cGame::Render()
 
 	Scene.Draw(Data.GetID(IMG_BLOCKS));
 	Player.Draw(Data.GetID(IMG_PLAYER));
+	if(secondPlayer)
+		Player2.Draw(Data.GetID(IMG_PLAYER));
 	auxShots = Shots;
 	Shots.clear();
 	for(int i = 0; i < auxShots.size(); ++i){
