@@ -1,5 +1,5 @@
 #include "Maze.h"
-#include <random>
+//#include <random>
 #include "QuickUnionSet.h"
 #include <limits>
 
@@ -105,11 +105,12 @@ void Maze::adjacentCells(int walli, int wallj, int& cell1, int& cell2) {
 
 void Maze::uniformPermutation(vector<int>& v, unsigned int seed) {
 
-	default_random_engine generator(seed);
-	uniform_int_distribution<int> distribution;
+	//default_random_engine generator(seed);
+	//uniform_int_distribution<int> distribution;
 
 	for (int i = 0; i < v.size(); ++i) {
-		int p = distribution(generator);
+		//int p = distribution(generator);
+		int p = rand();
 		p %= v.size() - i;
 
 		swap(v[i], v[p+i]);

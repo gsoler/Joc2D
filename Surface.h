@@ -4,7 +4,6 @@
 
 using namespace std;
 
-
 class Surface
 {
 typedef vector<vector<double> > Matrix;
