@@ -38,6 +38,7 @@ private:
 	cPlayer Player;
 	cPlayer Player2;
 	vector<cShot> Shots;
+	vector<cShot> Shots2;
 	vector<cShot> auxShots;
 	cData Data;
 };

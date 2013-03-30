@@ -38,15 +38,15 @@ bool cGame::Init()
 	if(!res) return false;
 	Player.SetWidthHeight(32,32);
 	Player.SetTile(4,1);
-	Player.SetWidthHeight(32,32);
 	Player.SetState(STATE_LOOKRIGHT);
 
 	//Player2 initialization
+	res = Data.LoadImage(IMG_PLAYER2,"bub.png",GL_RGBA);
+	if(!res) return false;
 	Player2.SetWidthHeight(32,32);
 	Player2.SetTile(10,1);
-	Player2.SetWidthHeight(32,32);
 	Player2.SetState(STATE_LOOKRIGHT);
-	secondPlayer = false;
+	secondPlayer = true;
 
 	//Shot initialization
 	res = Data.LoadImage(IMG_SHOT,"shot.png",GL_RGBA);
@@ -121,28 +121,28 @@ bool cGame::Process()
 	else Player.Stop();
 	
 	//Player 2
-	if(keys['W'] && keys['A']) {
+	if(keys['w'] && keys['a']) {
 		Player2.MoveUpLeft(Scene.GetMap());
 	}
-	else if(keys['W'] && keys['D']) {
+	else if(keys['w'] && keys['d']) {
 		Player2.MoveUpRight(Scene.GetMap());
 	}
-	else if(keys['W']) {
+	else if(keys['w']) {
 		Player2.MoveUp(Scene.GetMap());
 	}
-	else if(keys['S'] && keys['A']) {
+	else if(keys['s'] && keys['a']) {
 		Player2.MoveDownLeft(Scene.GetMap());
 	}
-	else if(keys['S'] && keys['D']) {
+	else if(keys['s'] && keys['d']) {
 		Player2.MoveDownRight(Scene.GetMap());
 	}
-	else if(keys['S']) {
+	else if(keys['s']) {
 		Player2.MoveDown(Scene.GetMap());
 	}
-	if(keys['A'])			{
+	if(keys['a'])			{
 		Player2.MoveLeft(Scene.GetMap());
 	}
-	else if(keys['D'])	{
+	else if(keys['d'])	{
 		Player2.MoveRight(Scene.GetMap());
 	}
 	else Player2.Stop();
@@ -159,6 +159,17 @@ bool cGame::Process()
 		Shot.SetState(STATE_SHOTING);
 		Shot.SetDirection(Player.GetState());
 		Shots.push_back(Shot);
+
+	}
+	if(keys[GLUT_ACTIVE_CTRL])					{
+		
+		int x, y;
+		Player2.GetPosition(&x,&y);
+		cShot Shot = cShot(x + TILE_SIZE/2, y + TILE_SIZE/2); //Inicialitzem el shot a la posicio del jugador, en el centre d l'sprite
+		Shot.SetWidthHeight(7,7);
+		Shot.SetState(STATE_SHOTING);
+		Shot.SetDirection(Player2.GetState());
+		Shots2.push_back(Shot);
 
 	}
 
@@ -191,7 +202,7 @@ void cGame::Render()
 	Scene.Draw(Data.GetID(IMG_BLOCKS));
 	Player.Draw(Data.GetID(IMG_PLAYER));
 	if(secondPlayer)
-		Player2.Draw(Data.GetID(IMG_PLAYER));
+		Player2.Draw(Data.GetID(IMG_PLAYER2));
 	auxShots = Shots;
 	Shots.clear();
 	for(int i = 0; i < auxShots.size(); ++i){
@@ -200,6 +211,17 @@ void cGame::Render()
 			Shots.push_back(auxShots[i]);
 		}
 	}
+	auxShots.clear();
+
+	auxShots = Shots2;
+	Shots2.clear();
+	for(int i = 0; i < auxShots.size(); ++i){
+		if(auxShots[i].GetState() == STATE_SHOTING){
+			auxShots[i].Draw(IMG_SHOT);
+			Shots2.push_back(auxShots[i]);
+		}
+	}
+	auxShots.clear();
 
 	glutSwapBuffers();
 }
