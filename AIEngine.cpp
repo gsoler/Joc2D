@@ -1,7 +1,6 @@
 #include "AIEngine.h"
 #include <queue>
-#include <set>
-#include <map>
+
 
 
 AIEngine::AIEngine(void)
@@ -49,7 +48,15 @@ void AIEngine::neighbours(PII c, const Matrix& graph, vector<PIID>& nList)
 	}
 }
 
-void AIEngine::aStar(int si, int sj, int gi, int gj, const Matrix& graph, int& path) 
+void AIEngine::getPath(const PII& start, const PII& goal, map<PII, Info>& cSet, vector<PII>& path) {
+	PII current = goal;
+	while (current != start) {
+		path.push_back(current);
+		current = cSet[current].second;
+	}
+}
+
+void AIEngine::aStar(int si, int sj, int gi, int gj, const Matrix& graph, vector<PII>& path) 
 {
 	PII start(si, sj);
 	PII goal(gi, gj);
@@ -57,20 +64,21 @@ void AIEngine::aStar(int si, int sj, int gi, int gj, const Matrix& graph, int& p
 	//priority queue "sorted" by f = g+h
 	priority_queue<PDII> openQueue;
 	//maps where the key is the node id and the value is g
-	map<PII, double> openSet;
-	map<PII, double> closedSet;
+	map<PII, Info> openSet;
+	map<PII, Info> closedSet;
 
 	//set first node
 	double h = heuristic(start, goal);
 	openQueue.push(PDII(h, start));
-	openSet[start] = 0.0;
+	openSet[start] = PDII(0.0, start);
 
 	while (!openQueue.empty()) {
 		PII current = openQueue.top().second; 
 		openQueue.pop();
 
 		if (current == goal) {
-			path = 1;//retrace path.
+			closedSet[current] = openSet[current];
+			getPath(start, goal, closedSet, path);
 			return;
 		}
 		
@@ -85,7 +93,7 @@ void AIEngine::aStar(int si, int sj, int gi, int gj, const Matrix& graph, int& p
 			//move current node from openSet to closedSet and keep de g value 
 			//for further usage
 			it = openSet.find(current);
-			double g = it->second;
+			double g = it->second.first;
 			closedSet.insert(*it);
 			openSet.erase(it);
 		
@@ -105,14 +113,13 @@ void AIEngine::aStar(int si, int sj, int gi, int gj, const Matrix& graph, int& p
 					it = openSet.find(neighbour);
 					//if neightbour is not open
 					if (it == openSet.end())  {
-						//save path followed: TODO
-						openSet[neighbour] = tg;
+						openSet[neighbour] = Info(tg, current);
 						double f = tg + heuristic(neighbour, goal);
 						openQueue.push(PDII(f, neighbour));
 					}
 					//if is open but tentative g is better than previous g
-					else if (tg < it->second) {
-						it->second = tg;
+					else if (tg < it->second.first) {
+						it->second = Info(tg, current);
 						double f = tg + heuristic(neighbour, goal);
 						//note that we may duplicate nodes
 						openQueue.push(PDII(f, neighbour));
