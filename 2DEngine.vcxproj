@@ -93,9 +93,11 @@
     <ClCompile Include="cScene.cpp" />
     <ClCompile Include="cShot.cpp" />
     <ClCompile Include="cTexture.cpp" />
+    <ClCompile Include="FieldRoom.cpp" />
     <ClCompile Include="GLUTMain.cpp" />
     <ClCompile Include="Maze.cpp" />
     <ClCompile Include="QuickUnionSet.cpp" />
+    <ClCompile Include="Room.cpp" />
     <ClCompile Include="Surface.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -107,9 +109,11 @@
     <ClInclude Include="cScene.h" />
     <ClInclude Include="cShot.h" />
     <ClInclude Include="cTexture.h" />
+    <ClInclude Include="FieldRoom.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="Maze.h" />
     <ClInclude Include="QuickUnionSet.h" />
+    <ClInclude Include="Room.h" />
     <ClInclude Include="Surface.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
