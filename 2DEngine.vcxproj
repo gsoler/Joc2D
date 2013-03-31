@@ -95,6 +95,7 @@
     <ClCompile Include="cTexture.cpp" />
     <ClCompile Include="FieldRoom.cpp" />
     <ClCompile Include="GLUTMain.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="Maze.cpp" />
     <ClCompile Include="QuickUnionSet.cpp" />
     <ClCompile Include="Room.cpp" />
@@ -111,6 +112,7 @@
     <ClInclude Include="cTexture.h" />
     <ClInclude Include="FieldRoom.h" />
     <ClInclude Include="Globals.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="Maze.h" />
     <ClInclude Include="QuickUnionSet.h" />
     <ClInclude Include="Room.h" />
