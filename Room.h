@@ -23,16 +23,16 @@ protected:
 	Matrix collisonMap;
 
 public:
-	Room(int heigth, int width, int bgTileSize, int fgTileSize, int fgTexId, int bgTexId);
+	Room(int heigth, int width, int bgTileSize, int fgTileSize, GLuint fgTexId, GLuint bgTexId);
 	virtual ~Room(void);
 
-	virtual int getWidth(void);
-	virtual int getHeigth(void);
+	int getWidth(void);
+	int getHeigth(void);
 
-	virtual bool collides(int x, int y);
+	bool collides(int x, int y);
 
 	virtual void createRoom(void) = 0;
 
-	virtual void drawRoom(void);
+	void drawRoom(void);
 };
 

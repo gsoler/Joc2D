@@ -1,7 +1,7 @@
 #include "Room.h"
 
 
-Room::Room(int height, int width, int bgTileSize, int fgTileSize, int fgTexId, int bgTexId)
+Room::Room(int height, int width, int bgTileSize, int fgTileSize, GLuint fgTexId, GLuint bgTexId)
 {
 	this->heigth = height;
 	this->width = width;
@@ -18,7 +18,8 @@ Room::~Room(void)
 {
 }
 
-int Room::getWidth(void) {
+int Room::getWidth(void) 
+{
 	return width;
 }
 
