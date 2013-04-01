@@ -9,6 +9,7 @@ private:
 	typedef std::vector<Room*>::iterator Iter;
 
 	std::vector<Room*> level;
+	std::vector<int> metrics;
 
 public:
 	enum RoomType {FIELD, MAZE};

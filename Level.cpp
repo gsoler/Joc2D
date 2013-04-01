@@ -23,9 +23,25 @@ void Level::addRoom(int heigth, int width, int bgTileSize, int fgTileSize, GLuin
 	
 	room->createRoom();
 	level.push_back(room);
+
+	if (metrics.empty()) metrics.push_back(room->getHeigth());
+	else metrics.push_back(room->getHeigth() + metrics.back()+1);
+
 }
 
 void Level::drawLevel(int bottom, int top)
 {
-	
+	if (bottom < top && bottom >= 0 && top <= metrics.back()) {
+		int i = 0;
+		while (metrics[i] < bottom) ++i;
+		--i;
+
+		int j = i;
+		while (metrics[j] < top) ++j;
+		--j;
+
+		for (int k = i; k <= j; ++k) {
+
+		}
+	}
 }
