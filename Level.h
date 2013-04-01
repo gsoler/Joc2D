@@ -9,7 +9,6 @@ private:
 	typedef std::vector<Room*>::iterator Iter;
 
 	std::vector<Room*> level;
-	std::vector<int> levelSz;
 
 public:
 	enum RoomType {FIELD, MAZE};
@@ -19,5 +18,6 @@ public:
 
 	void addRoom(int heigth, int width, int bgTileSize, int fgTileSize, GLuint fgTexId, GLuint bgTexId, RoomType roomType);
 
+	void drawLevel(int bottom, int top);
 };
 

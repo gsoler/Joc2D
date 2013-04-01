@@ -16,11 +16,11 @@ Surface::~Surface(void)
 
 double Surface::getZ(int y, int x) 
 {
-	//if (x < 0 || x >= width || y < 0 || y >= heigth) return -10;
+	assert(x >= 0 || x < width || y >= 0 || y < height);
 	return surface[y][x];
 }
 
-double dRand(double min, double max) {
+double Surface::dRand(double min, double max) {
 	double f = rand() / RAND_MAX;
 	return min + f * (max - min);
 }

@@ -50,3 +50,9 @@ void Room::drawRoom()
 
 	glDisable(GL_TEXTURE_2D);
 }
+
+void Room::deleteDisplayLists()
+{
+	glDeleteLists(bgDisplayList, 1);
+	glDeleteLists(fgDisplayList, 1);
+}

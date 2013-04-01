@@ -21,6 +21,7 @@ private:
 
 	void normalizeVec2(vec2& v);
 	double dotProdVec2(const vec2& v, const vec2& u);
+	double dRand(double min, double max);
 
 public:
 	Surface(int heigth, int width);

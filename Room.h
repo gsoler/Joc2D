@@ -34,5 +34,7 @@ public:
 	virtual void createRoom(void) = 0;
 
 	void drawRoom(void);
+
+	void deleteDisplayLists();
 };
 
