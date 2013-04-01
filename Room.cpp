@@ -3,7 +3,7 @@
 
 Room::Room(int height, int width, int bgTileSize, int fgTileSize, GLuint fgTexId, GLuint bgTexId)
 {
-	this->heigth = height;
+	this->height = height;
 	this->width = width;
 
 	this->bgTileSize = bgTileSize;
@@ -23,14 +23,14 @@ int Room::getWidth(void)
 	return width;
 }
 
-int Room::getHeigth(void)  
+int Room::getHeight(void)  
 {
-	return heigth;
+	return height;
 }
 
 bool Room::collides(int x, int y) 
 {
-	if (x < 0 || x > width || y < 0 || y > heigth) return true; 
+	if (x < 0 || x > width || y < 0 || y > height) return true; 
 	
 	int tx = x/fgTileSize;
 	int ty = y/fgTileSize;

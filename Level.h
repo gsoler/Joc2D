@@ -19,6 +19,10 @@ public:
 
 	void addRoom(int heigth, int width, int bgTileSize, int fgTileSize, GLuint fgTexId, GLuint bgTexId, RoomType roomType);
 
+	int getHeight();
+
+	bool collides(int x, int y);
+
 	void drawLevel(int bottom, int top);
 };
 

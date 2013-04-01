@@ -9,7 +9,7 @@ protected:
 	typedef std::vector<std::vector<int> > Matrix;
 
 	int width;
-	int heigth;
+	int height;
 
 	int bgTileSize;
 	int fgTileSize;
@@ -23,11 +23,11 @@ protected:
 	Matrix collisonMap;
 
 public:
-	Room(int heigth, int width, int bgTileSize, int fgTileSize, GLuint fgTexId, GLuint bgTexId);
+	Room(int height, int width, int bgTileSize, int fgTileSize, GLuint fgTexId, GLuint bgTexId);
 	virtual ~Room(void);
 
 	int getWidth(void);
-	int getHeigth(void);
+	int getHeight(void);
 
 	bool collides(int x, int y);
 

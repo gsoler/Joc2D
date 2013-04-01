@@ -82,12 +82,12 @@ void AIEngine::aStar(int si, int sj, int gi, int gj, const Matrix& graph, vector
 			return;
 		}
 		
-		mapIter it = closedSet.find(current);
-		
 		//in order to modify a node g value, another copy of the node is
 		//pushed into the openQueue so the best value will be extracted 
 		//first. Thus, we need to check if the node extracted is already 
 		//closed and, in that case, draw another node from de queue.
+		
+		mapIter it = closedSet.find(current);
 		if (it == closedSet.end()) {
 
 			//move current node from openSet to closedSet and keep de g value 
@@ -105,7 +105,6 @@ void AIEngine::aStar(int si, int sj, int gi, int gj, const Matrix& graph, vector
 				double dist = nList[i].second; 
 
 				it = closedSet.find(neighbour);
-
 				//if neightbour is not closed
 				if (it == closedSet.end()) {
 					double tg = g + dist;
