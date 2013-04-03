@@ -22,7 +22,7 @@ public:
 	void Finalize();
 
 	//Input
-	void ReadKeyboard(unsigned char key, int x, int y, bool press);
+	void ReadKeyboard(unsigned char key, int x, int y, bool press, bool special);
 	void ReadMouse(int button, int state, int x, int y);
 	//Process
 	bool Process();
@@ -30,10 +30,14 @@ public:
 	void Render();
 
 private:
+	int PosicioMinima();
+
+	int level;
 	bool secondPlayer;
 	int PosPant;
 	int Direction;
 	unsigned char keys[256];
+	unsigned char specialkeys[256];
 	cScene Scene;
 	cPlayer Player;
 	cPlayer Player2;

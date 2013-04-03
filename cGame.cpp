@@ -7,6 +7,7 @@
 cGame::cGame(void)
 {
 	PosPant = 0;
+	level = 0;
 }
 
 cGame::~cGame(void)
@@ -30,18 +31,17 @@ bool cGame::Init()
 	//Scene initialization
 	res = Data.LoadImage(IMG_BLOCKS,"blocks.png",GL_RGBA);
 	if(!res) return false;
-	res = Scene.LoadLevel(1);
-	if(!res) return false;
-
+	Scene.LoadLevel(Data);
+	
 	//Player initialization
-	res = Data.LoadImage(IMG_PLAYER,"bub.png",GL_RGBA);
+	res = Data.LoadImage(IMG_PLAYER,"player2.png",GL_RGBA);
 	if(!res) return false;
 	Player.SetWidthHeight(32,32);
 	Player.SetTile(4,1);
 	Player.SetState(STATE_LOOKRIGHT);
 
 	//Player2 initialization
-	res = Data.LoadImage(IMG_PLAYER2,"bub.png",GL_RGBA);
+	res = Data.LoadImage(IMG_PLAYER2,"player3.png",GL_RGBA);
 	if(!res) return false;
 	Player2.SetWidthHeight(32,32);
 	Player2.SetTile(10,1);
@@ -77,16 +77,26 @@ void cGame::Finalize()
 }
 
 //Input
-void cGame::ReadKeyboard(unsigned char key, int x, int y, bool press)
+void cGame::ReadKeyboard(unsigned char key, int x, int y, bool press, bool special)
 {
-	keys[key] = press;
-	if (!press) {
-		keys[GLUT_KEY_UP]*= 3;
-		keys[GLUT_KEY_DOWN]*= 3;
-		keys[GLUT_KEY_LEFT]*= 3;
-		keys[GLUT_KEY_RIGHT]*= 3;
+	if(special) {
+		specialkeys[key] = press;
+		if (!press) {
+			specialkeys[GLUT_KEY_UP]*= 3;
+			specialkeys[GLUT_KEY_DOWN]*= 3;
+			specialkeys[GLUT_KEY_LEFT]*= 3;
+			specialkeys[GLUT_KEY_RIGHT]*= 3;
+		}
 	}
-	
+	else {
+		keys[key] = press;
+		if (!press) {
+			keys[GLUT_KEY_UP]*= 3;
+			keys[GLUT_KEY_DOWN]*= 3;
+			keys[GLUT_KEY_LEFT]*= 3;
+			keys[GLUT_KEY_RIGHT]*= 3;
+		}
+	}
 }
 
 void cGame::ReadMouse(int button, int state, int x, int y)
@@ -101,68 +111,72 @@ bool cGame::Process()
 	//Process Input
 	if(keys[27])	res=false;
 	
-	if(keys[GLUT_KEY_UP] && keys[GLUT_KEY_LEFT]) {
-		Player.MoveUpLeft(Scene.GetMap());
+	if(specialkeys[GLUT_KEY_UP] && specialkeys[GLUT_KEY_LEFT]) {
+		Player.MoveUpLeft(Scene.GetLevel(level));
 	}
-	else if(keys[GLUT_KEY_UP] && keys[GLUT_KEY_RIGHT]) {
-		Player.MoveUpRight(Scene.GetMap());
+	else if(specialkeys[GLUT_KEY_UP] && specialkeys[GLUT_KEY_RIGHT]) {
+		Player.MoveUpRight(Scene.GetLevel(level));
 	}
-	else if(keys[GLUT_KEY_UP]) {
-		if (keys[GLUT_KEY_UP] > 1) --keys[GLUT_KEY_UP];
-		else Player.MoveUp(Scene.GetMap());
+	else if(specialkeys[GLUT_KEY_UP]) {
+		if (specialkeys[GLUT_KEY_UP] > 1) --specialkeys[GLUT_KEY_UP];
+		else Player.MoveUp(Scene.GetLevel(level));
 	}
-	else if(keys[GLUT_KEY_DOWN] && keys[GLUT_KEY_LEFT]) {
-		Player.MoveDownLeft(Scene.GetMap());
+	else if(specialkeys[GLUT_KEY_DOWN] && specialkeys[GLUT_KEY_LEFT]) {
+		Player.MoveDownLeft(Scene.GetLevel(level));
 	}
-	else if(keys[GLUT_KEY_DOWN] && keys[GLUT_KEY_RIGHT]) {
-		Player.MoveDownRight(Scene.GetMap());
+	else if(specialkeys[GLUT_KEY_DOWN] && specialkeys[GLUT_KEY_RIGHT]) {
+		Player.MoveDownRight(Scene.GetLevel(level));
 	}
-	else if(keys[GLUT_KEY_DOWN]) {
-		if (keys[GLUT_KEY_DOWN] > 1) --keys[GLUT_KEY_DOWN];
-		else Player.MoveDown(Scene.GetMap());
+	else if(specialkeys[GLUT_KEY_DOWN]) {
+		if (specialkeys[GLUT_KEY_DOWN] > 1) --specialkeys[GLUT_KEY_DOWN];
+		else Player.MoveDown(Scene.GetLevel(level));
 	}
-	else if(keys[GLUT_KEY_LEFT])			{
+	else if(specialkeys[GLUT_KEY_LEFT])			{
 		
-		if (keys[GLUT_KEY_LEFT] > 1) --keys[GLUT_KEY_LEFT];
-		else Player.MoveLeft(Scene.GetMap());
+		if (specialkeys[GLUT_KEY_LEFT] > 1) --specialkeys[GLUT_KEY_LEFT];
+		else Player.MoveLeft(Scene.GetLevel(level));
 	}
-	else if(keys[GLUT_KEY_RIGHT])	{
-		if (keys[GLUT_KEY_RIGHT] > 1) --keys[GLUT_KEY_RIGHT];
-		else Player.MoveRight(Scene.GetMap());
+	else if(specialkeys[GLUT_KEY_RIGHT])	{
+		if (specialkeys[GLUT_KEY_RIGHT] > 1) --specialkeys[GLUT_KEY_RIGHT];
+		else Player.MoveRight(Scene.GetLevel(level));
 	}
 	else Player.Stop();
 	
 	//Player 2
 	if(keys['w'] && keys['a']) {
-		Player2.MoveUpLeft(Scene.GetMap());
+		Player2.MoveUpLeft(Scene.GetLevel(level));
 	}
 	else if(keys['w'] && keys['d']) {
-		Player2.MoveUpRight(Scene.GetMap());
+		Player2.MoveUpRight(Scene.GetLevel(level));
 	}
 	else if(keys['w']) {
-		Player2.MoveUp(Scene.GetMap());
+		if (keys['w'] > 1) --keys['w'];
+		else Player2.MoveUp(Scene.GetLevel(level));
 	}
 	else if(keys['s'] && keys['a']) {
-		Player2.MoveDownLeft(Scene.GetMap());
+		Player2.MoveDownLeft(Scene.GetLevel(level));
 	}
 	else if(keys['s'] && keys['d']) {
-		Player2.MoveDownRight(Scene.GetMap());
+		Player2.MoveDownRight(Scene.GetLevel(level));
 	}
 	else if(keys['s']) {
-		Player2.MoveDown(Scene.GetMap());
+		if (keys['s'] > 1) --keys['s'];
+		else Player2.MoveDown(Scene.GetLevel(level));
 	}
 	if(keys['a'])			{
-		Player2.MoveLeft(Scene.GetMap());
+		if (keys['a'] > 1) --keys['a'];
+		else Player2.MoveLeft(Scene.GetLevel(level));
 	}
 	else if(keys['d'])	{
-		Player2.MoveRight(Scene.GetMap());
+		if (keys['d'] > 1) --keys['d'];
+		else Player2.MoveRight(Scene.GetLevel(level));
 	}
 	else Player2.Stop();
 	
 	int t1, t2;
 
 	
-	if(keys[' '])					{
+	if(keys['-'])					{
 		
 		int x, y;
 		Player.GetPosition(&x,&y);
@@ -173,7 +187,7 @@ bool cGame::Process()
 		Shots.push_back(Shot);
 
 	}
-/*	if(keys[GLUT_ACTIVE_CTRL])					{
+	if(keys[' '])					{
 		
 		int x, y;
 		Player2.GetPosition(&x,&y);
@@ -183,7 +197,7 @@ bool cGame::Process()
 		Shot.SetDirection(Player2.GetState());
 		Shots2.push_back(Shot);
 
-	}*/
+	}
 
 	
 	
@@ -209,9 +223,7 @@ void cGame::Render()
 	else if(y < PosPant + GAME_HEIGHT/8 - 50)
 		PosPant -= STEP_LENGTH;
 
-	glTranslatef(0.0f, -PosPant*1.0f, 0.0f);
-
-	Scene.Draw(Data.GetID(IMG_BLOCKS));
+	Scene.Draw(level,PosPant, PosPant + GAME_HEIGHT);
 	Player.Draw(Data.GetID(IMG_PLAYER));
 	if(secondPlayer)
 		Player2.Draw(Data.GetID(IMG_PLAYER2));
@@ -236,4 +248,15 @@ void cGame::Render()
 	auxShots.clear();
 
 	glutSwapBuffers();
+}
+
+int cGame::PosicioMinima()
+{
+	int auxx, auxy, auxx2, auxy2;
+	Player.GetPosition(&auxx, &auxy);
+	if(secondPlayer) {
+		Player2.GetPosition(&auxy2, &auxy2);
+		return min(auxy, auxy2);
+	}
+	return auxy;
 }

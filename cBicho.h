@@ -2,6 +2,7 @@
 
 #include "cTexture.h"
 #include "Globals.h"
+#include "Level.h"
 
 #define FRAME_DELAY		8
 #define STEP_LENGTH		2
@@ -46,20 +47,18 @@ public:
 	void SetWidthHeight(int w,int h);
 	void GetWidthHeight(int *w,int *h);
 
-	bool Collides(cRect *rc);
-	bool CollidesMapWall(int *map,bool right);
-	bool CollidesMapFloor(int *map,bool up);
+	bool Collides(Level *l);
 	void GetArea(cRect *rc);
 	void DrawRect(int tex_id,float xo,float yo,float xf,float yf);
 	
-	void MoveUp(int *map);
-	void MoveUpRight(int *map);
-	void MoveRight(int *map);
-	void MoveDownRight(int *map);
-	void MoveDown(int *map);
-	void MoveDownLeft(int *map);
-	void MoveLeft(int *map);
-	void MoveUpLeft(int *map);
+	void MoveUp(Level *l);
+	void MoveUpRight(Level *l);
+	void MoveRight(Level *l);
+	void MoveDownRight(Level *l);
+	void MoveDown(Level *l);
+	void MoveDownLeft(Level *l);
+	void MoveLeft(Level *l);
+	void MoveUpLeft(Level *l);
 	void Stop();
 	//void Logic(int *map);
 

@@ -13,19 +13,19 @@ void AppRender()
 }
 void AppKeyboard(unsigned char key, int x, int y)
 {
-	Game.ReadKeyboard(key,x,y,true);
+	Game.ReadKeyboard(key,x,y,true,false);
 }
 void AppKeyboardUp(unsigned char key, int x, int y)
 {
-	Game.ReadKeyboard(key,x,y,false);
+	Game.ReadKeyboard(key,x,y,false,false);
 }
 void AppSpecialKeys(int key, int x, int y)
 {
-	Game.ReadKeyboard(key,x,y,true);
+	Game.ReadKeyboard(key,x,y,true, true);
 }
 void AppSpecialKeysUp(int key, int x, int y)
 {
-	Game.ReadKeyboard(key,x,y,false);
+	Game.ReadKeyboard(key,x,y,false,true);
 }
 void AppMouse(int button, int state, int x, int y)
 {

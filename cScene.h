@@ -1,6 +1,9 @@
 #pragma once
 
 #include "cTexture.h"
+#include "Level.h"
+#include "cData.h"
+#include <vector>
 
 #define SCENE_Xo		(2*TILE_SIZE)
 #define SCENE_Yo		TILE_SIZE
@@ -19,11 +22,10 @@ public:
 	cScene(void);
 	virtual ~cScene(void);
 
-	bool LoadLevel(int level);
-	void Draw(int tex_id);
-	int *GetMap();
+	void LoadLevel(cData &data);
+	void Draw(int level, int bottom, int top);
+	Level* GetLevel(int level);
 
 private:
-	int map[SCENE_WIDTH * SCENE_HEIGHT];	//scene
-	int id_DL;								//actual level display list
+	std::vector<Level> nivells;								//actual level display list
 };

@@ -4,7 +4,7 @@
 #include "Globals.h"
 
 //Image array size
-#define NUM_IMG		2
+#define NUM_IMG		4
 
 //Image identifiers
 #define IMG_BLOCKS	0
@@ -12,9 +12,9 @@
 #define IMG_SHOT	2
 #define IMG_PLAYER2 3
 /*
-#define IMG_ENEMY1	2
-#define IMG_ENEMY2	3
-#define IMG_SHOOT	4
+#define IMG_ENEMY1	4
+#define IMG_ENEMY2	5
+#define IMG_SHOOT	6
 ...
 */
 
