@@ -10,6 +10,10 @@ Level::Level(void)
 
 Level::~Level(void)
 {
+}
+
+void Level::deleteLevel() 
+{
 	for (Iter it = level.begin(); it != level.end(); ++it) {
 		(*it)->deleteDisplayLists();
 		delete *it;
@@ -40,12 +44,12 @@ int Level::getHeight()
 	return h;
 }
 
-bool Level::collides(int x, int y, int xt, int yt) {
+bool Level::collides(int x0, int y0, int x1, int y1) {
 	int i = 0;
-	while (metrics[i] < x) ++i;
+	while (metrics[i] < y0) ++i;
 	--i;
 
-	return level[i]->collides(x-metrics[i], y, xt - metrics[i], yt);
+	return level[i]->collides(x0-metrics[i], y0, x1 - metrics[i], y1);
 }
 
 void Level::drawLevel(int bottom, int top)

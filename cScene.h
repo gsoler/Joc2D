@@ -22,10 +22,10 @@ public:
 	cScene(void);
 	virtual ~cScene(void);
 
-	void LoadLevel(cData &data);
+	void LoadLevel(cData &data, int n);
 	void Draw(int level, int bottom, int top);
 	Level* GetLevel(int level);
 
 private:
-	std::vector<Level> nivells;								//actual level display list
+	std::vector<Level> nivells;	
 };

@@ -35,12 +35,12 @@ bool Room::isProcessable(void)
 	return processable;
 }
 
-bool Room::collides(int x, int y, int tx, int ty) 
+bool Room::collides(int x0, int y0, int x1, int y1) 
 {
-	if (x < 0 || x > width || y < 0 || y > height) return true; 
+	if (x0 < 0 || x0 > width || y0 < 0 || y0 > height) return true; 
 	
-	int tx = x/fgTileSize;
-	int ty = y/fgTileSize;
+	int tx = x0/fgTileSize;
+	int ty = y0/fgTileSize;
 
 	return (collisonMap[ty][tx] != 0);
 }

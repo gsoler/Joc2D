@@ -16,7 +16,7 @@ void MovingMazeRoom::createRoom(void)
 {
 	MazeRoom::createRoom();
 
-
+	
 }
 
 void MovingMazeRoom::procces(void) 

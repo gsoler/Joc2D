@@ -31,7 +31,7 @@ public:
 	int getWidth(void);
 	int getHeight(void);
 
-	bool isProcessable();
+	bool isProcessable(void);
 
 	bool collides(int x, int y, int tx, int ty);
 

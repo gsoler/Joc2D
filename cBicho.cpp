@@ -50,7 +50,7 @@ void cBicho::GetWidthHeight(int *width,int *height)
 }
 bool cBicho::Collides(Level *l)
 {
-	return l->collides(x,y);
+	return l->collides(x, y, 0, 0);
 }
 
 void cBicho::GetArea(cRect *rc)
@@ -99,6 +99,7 @@ void cBicho::MoveUp(Level *l)
 		}
 	}
 }
+
 void cBicho::MoveUpRight(Level *l)
 {
 	y += STEP_LENGTH/2;

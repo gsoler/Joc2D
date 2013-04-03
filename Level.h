@@ -12,16 +12,17 @@ private:
 	std::vector<int> metrics;
 
 public:
-	enum RoomType {FIELD, MAZE};
+	static const enum RoomType {FIELD, MAZE};
 
 	Level(void);
 	~Level(void);
 
+	void deleteLevel();
 	void addRoom(int heigth, int width, int bgTileSize, int fgTileSize, GLuint fgTexId, GLuint bgTexId, RoomType roomType);
 
 	int getHeight();
 
-	bool collides(int x, int y);
+	bool collides(int x, int y, int xt, int yt);
 
 	void drawLevel(int bottom, int top);
 };

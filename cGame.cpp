@@ -31,7 +31,6 @@ bool cGame::Init()
 	//Scene initialization
 	res = Data.LoadImage(IMG_BLOCKS,"blocks.png",GL_RGBA);
 	if(!res) return false;
-	Scene.LoadLevel(Data);
 	
 	//Player initialization
 	res = Data.LoadImage(IMG_PLAYER,"player2.png",GL_RGBA);
@@ -51,6 +50,8 @@ bool cGame::Init()
 	//Shot initialization
 	res = Data.LoadImage(IMG_SHOT,"shot.png",GL_RGBA);
 	if(!res) return false;
+
+	Scene.LoadLevel(Data, 1);
 
 	return res;
 }
@@ -223,12 +224,15 @@ void cGame::Render()
 	else if(y < PosPant + GAME_HEIGHT/8 - 50)
 		PosPant -= STEP_LENGTH;
 
-	Scene.Draw(level,PosPant, PosPant + GAME_HEIGHT);
+	Scene.Draw(level, PosPant, PosPant + GAME_HEIGHT);
+
 	Player.Draw(Data.GetID(IMG_PLAYER));
-	if(secondPlayer)
-		Player2.Draw(Data.GetID(IMG_PLAYER2));
+
+	if(secondPlayer) Player2.Draw(Data.GetID(IMG_PLAYER2));
+
 	auxShots = Shots;
 	Shots.clear();
+	
 	for(unsigned int i = 0; i < auxShots.size(); ++i){
 		if(auxShots[i].GetState() == STATE_SHOTING){
 			auxShots[i].Draw(IMG_SHOT);
@@ -239,8 +243,8 @@ void cGame::Render()
 
 	auxShots = Shots2;
 	Shots2.clear();
-	for(int i = 0; i < auxShots.size(); ++i){
-		if(auxShots[i].GetState() == STATE_SHOTING){
+	for (int i = 0; i < auxShots.size(); ++i){
+		if (auxShots[i].GetState() == STATE_SHOTING){
 			auxShots[i].Draw(IMG_SHOT);
 			Shots2.push_back(auxShots[i]);
 		}

@@ -120,5 +120,6 @@ void FieldRoom::createRoom()
 {
 	createBackground();
 	createForeground();
+
 }
 
