@@ -11,6 +11,8 @@ Room::Room(int height, int width, int bgTileSize, int fgTileSize, GLuint fgTexId
 	
 	this->fgTexId = fgTexId;
 	this->bgTexId = bgTexId;
+
+	processable = false;
 }
 
 
@@ -28,7 +30,12 @@ int Room::getHeight(void)
 	return height;
 }
 
-bool Room::collides(int x, int y) 
+bool Room::isProcessable(void) 
+{
+	return processable;
+}
+
+bool Room::collides(int x, int y, int tx, int ty) 
 {
 	if (x < 0 || x > width || y < 0 || y > height) return true; 
 	

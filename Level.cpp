@@ -40,12 +40,12 @@ int Level::getHeight()
 	return h;
 }
 
-bool Level::collides(int x, int y) {
+bool Level::collides(int x, int y, int xt, int yt) {
 	int i = 0;
 	while (metrics[i] < x) ++i;
 	--i;
 
-	return level[i]->collides(x-metrics[i], y);
+	return level[i]->collides(x-metrics[i], y, xt - metrics[i], yt);
 }
 
 void Level::drawLevel(int bottom, int top)

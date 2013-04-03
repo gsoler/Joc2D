@@ -8,6 +8,8 @@ class Room
 protected:
 	typedef std::vector<std::vector<int> > Matrix;
 
+	bool processable;
+
 	int width;
 	int height;
 
@@ -29,7 +31,9 @@ public:
 	int getWidth(void);
 	int getHeight(void);
 
-	bool collides(int x, int y);
+	bool isProcessable();
+
+	bool collides(int x, int y, int tx, int ty);
 
 	virtual void createRoom(void) = 0;
 

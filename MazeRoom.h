@@ -9,8 +9,8 @@ private:
 
 public:
 	MazeRoom(int heigth, int width, int bgTileSize, int fgTileSize, GLuint fgTexId, GLuint bgTexId);
-	~MazeRoom(void);
+	virtual ~MazeRoom(void);
 
-	void createRoom(void);
+	virtual void createRoom(void);
 };
 
