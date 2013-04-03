@@ -61,32 +61,32 @@ void cShot::SetDirection(int dir)
 			vecDir.y = 1;
 			break;
 		case 1:
-			vecDir.x = 0.5;
-			vecDir.y = 0.5;
+			vecDir.x = 0.7;
+			vecDir.y = 0.7;
 			break;
 		case 2:
 			vecDir.x = 1;
 			vecDir.y = 0;
 			break;
 		case 3:
-			vecDir.x = 0.5;
-			vecDir.y = -0.5;
+			vecDir.x = 0.7;
+			vecDir.y = -0.7;
 			break;
 		case 4:
 			vecDir.x = 0;
 			vecDir.y = -1;
 			break;
 		case 5:
-			vecDir.x = -0.5;
-			vecDir.y = -0.5;
+			vecDir.x = -0.7;
+			vecDir.y = -0.7;
 			break;
 		case 6:
 			vecDir.x = -1;
 			vecDir.y = 0;
 			break;
 		case 7:
-			vecDir.x = -0.5;
-			vecDir.y = 0.5;
+			vecDir.x = -0.7;
+			vecDir.y = 0.7;
 			break;
 	}
 

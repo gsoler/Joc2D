@@ -17,7 +17,7 @@ public:
 	void SetDirection(int Direction);
 
 private:
-	int x,y;
+	float x,y;
 	int w,h;
 	int state;
 

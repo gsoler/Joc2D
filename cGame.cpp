@@ -80,6 +80,13 @@ void cGame::Finalize()
 void cGame::ReadKeyboard(unsigned char key, int x, int y, bool press)
 {
 	keys[key] = press;
+	if (!press) {
+		keys[GLUT_KEY_UP]*= 3;
+		keys[GLUT_KEY_DOWN]*= 3;
+		keys[GLUT_KEY_LEFT]*= 3;
+		keys[GLUT_KEY_RIGHT]*= 3;
+	}
+	
 }
 
 void cGame::ReadMouse(int button, int state, int x, int y)
@@ -101,7 +108,8 @@ bool cGame::Process()
 		Player.MoveUpRight(Scene.GetMap());
 	}
 	else if(keys[GLUT_KEY_UP]) {
-		Player.MoveUp(Scene.GetMap());
+		if (keys[GLUT_KEY_UP] > 1) --keys[GLUT_KEY_UP];
+		else Player.MoveUp(Scene.GetMap());
 	}
 	else if(keys[GLUT_KEY_DOWN] && keys[GLUT_KEY_LEFT]) {
 		Player.MoveDownLeft(Scene.GetMap());
@@ -110,13 +118,17 @@ bool cGame::Process()
 		Player.MoveDownRight(Scene.GetMap());
 	}
 	else if(keys[GLUT_KEY_DOWN]) {
-		Player.MoveDown(Scene.GetMap());
+		if (keys[GLUT_KEY_DOWN] > 1) --keys[GLUT_KEY_DOWN];
+		else Player.MoveDown(Scene.GetMap());
 	}
-	if(keys[GLUT_KEY_LEFT])			{
-		Player.MoveLeft(Scene.GetMap());
+	else if(keys[GLUT_KEY_LEFT])			{
+		
+		if (keys[GLUT_KEY_LEFT] > 1) --keys[GLUT_KEY_LEFT];
+		else Player.MoveLeft(Scene.GetMap());
 	}
 	else if(keys[GLUT_KEY_RIGHT])	{
-		Player.MoveRight(Scene.GetMap());
+		if (keys[GLUT_KEY_RIGHT] > 1) --keys[GLUT_KEY_RIGHT];
+		else Player.MoveRight(Scene.GetMap());
 	}
 	else Player.Stop();
 	
@@ -161,7 +173,7 @@ bool cGame::Process()
 		Shots.push_back(Shot);
 
 	}
-	if(keys[GLUT_ACTIVE_CTRL])					{
+/*	if(keys[GLUT_ACTIVE_CTRL])					{
 		
 		int x, y;
 		Player2.GetPosition(&x,&y);
@@ -171,7 +183,7 @@ bool cGame::Process()
 		Shot.SetDirection(Player2.GetState());
 		Shots2.push_back(Shot);
 
-	}
+	}*/
 
 	
 	
@@ -205,7 +217,7 @@ void cGame::Render()
 		Player2.Draw(Data.GetID(IMG_PLAYER2));
 	auxShots = Shots;
 	Shots.clear();
-	for(int i = 0; i < auxShots.size(); ++i){
+	for(unsigned int i = 0; i < auxShots.size(); ++i){
 		if(auxShots[i].GetState() == STATE_SHOTING){
 			auxShots[i].Draw(IMG_SHOT);
 			Shots.push_back(auxShots[i]);
