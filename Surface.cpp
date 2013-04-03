@@ -14,7 +14,7 @@ Surface::~Surface(void)
 {
 }
 
-double Surface::getZ(int y, int x) 
+double Surface::getZ(int x, int y) 
 {
 	assert(x >= 0 || x < width || y >= 0 || y < height);
 	return surface[y][x];

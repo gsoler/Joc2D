@@ -97,6 +97,7 @@
     <ClCompile Include="GLUTMain.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Maze.cpp" />
+    <ClCompile Include="MazeRoom.cpp" />
     <ClCompile Include="QuickUnionSet.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="Surface.cpp" />
@@ -114,6 +115,7 @@
     <ClInclude Include="Globals.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Maze.h" />
+    <ClInclude Include="MazeRoom.h" />
     <ClInclude Include="QuickUnionSet.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="Surface.h" />

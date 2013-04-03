@@ -74,7 +74,7 @@ void Maze::generateMaze(unsigned int seed)
 	}
 }
 
-int Maze::isWall(int y, int x) {
+int Maze::isWall(int x, int y) {
 	return maze[x][y];
 }
 

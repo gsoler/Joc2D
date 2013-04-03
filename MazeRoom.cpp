@@ -1,17 +1,18 @@
-#include "FieldRoom.h"
+#include "MazeRoom.h"
+#include "Maze.h"
 #include "Surface.h"
 
-FieldRoom::FieldRoom(int heigth, int width, int bgTileSize, int fgTileSize, GLuint fgTexId, GLuint bgTexId)
-	:Room(heigth, width, bgTileSize, fgTileSize, fgTexId, bgTexId)
+MazeRoom::MazeRoom(int heigth, int width, int bgTileSize, int fgTileSize, GLuint fgTexId, GLuint bgTexId)
+	:Room(heigth, width, bgTileSize, fgTileSize, fgTexId,bgTexId)
 {
 }
 
 
-FieldRoom::~FieldRoom(void)
+MazeRoom::~MazeRoom(void)
 {
 }
 
-void FieldRoom::createBackground() 
+void MazeRoom::createBackground(void) 
 {
 	int n = height/bgTileSize;
 	int m = width/bgTileSize;
@@ -25,10 +26,11 @@ void FieldRoom::createBackground()
 		glBegin(GL_QUADS);
 		for (int i = 0; i < n; ++i) {
 			for (int j = 0; j < m; ++j) {
+
 				float coordx_tile;
 				float coordy_tile;
-
-				double z = s.getZ(i, j); 
+				
+				double z = s.getZ(j, i); 
 
 				if (z <= -0.5) {
 					coordx_tile = 0.0f;
@@ -67,21 +69,20 @@ void FieldRoom::createBackground()
 	glEndList();
 }
 
-void FieldRoom::createForeground()
+void MazeRoom::createForeground(void)
 {
 	int n = height/fgTileSize;
 	int m = width/fgTileSize;
-
 	collisonMap = Matrix(n, vector<int>(m, 0));
 
-	for (int i = 0; i < m; ++i) {
-		collisonMap[0][i] = 1;
-		collisonMap[n-1][i] = 1;
-	}
+	Maze maze(n,m,0,0);
+	maze.generateMaze(0);
+
 
 	for (int i = 0; i < n; ++i) {
-		collisonMap[i][0] = 1;
-		collisonMap[i][m-1] = 1;
+		for (int j = 0; j < m; ++j) {
+			collisonMap[i][j] = maze.isWall(j, i);
+		}
 	}
 
 	GLuint fgDisplayList = glGenLists(1);
@@ -116,9 +117,8 @@ void FieldRoom::createForeground()
 	glEndList();
 }
 
-void FieldRoom::createRoom()
+void MazeRoom::createRoom(void)
 {
 	createBackground();
 	createForeground();
 }
-

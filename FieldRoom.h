@@ -6,13 +6,13 @@ class FieldRoom : public Room
 {
 private:
 
-	GLuint createBackground(unsigned int seed);
-	GLuint createForeground();
+	void createBackground(void);
+	void createForeground(void);
 
 public:
 	FieldRoom(int heigth, int width, int bgTileSize, int fgTileSize, GLuint fgTexId, GLuint bgTexId);
 	~FieldRoom(void);
 
-	void createRoom();
+	void createRoom(void);
 };
 

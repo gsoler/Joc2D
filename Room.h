@@ -35,6 +35,6 @@ public:
 
 	void drawRoom(void);
 
-	void deleteDisplayLists();
+	void deleteDisplayLists(void);
 };
 

@@ -28,6 +28,6 @@ public:
 	~Surface(void);
 
 	void perlinNoise(int r, unsigned int seed);
-	double getZ(int y, int x);
+	double getZ(int x, int y);
 };
 
