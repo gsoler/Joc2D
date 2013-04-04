@@ -38,6 +38,7 @@ void cBicho::GetTile(int *tx,int *ty)
 	*tx = x / TILE_SIZE;
 	*ty = y / TILE_SIZE;
 }
+
 void cBicho::SetWidthHeight(int width,int height)
 {
 	w = width;
@@ -85,7 +86,7 @@ void cBicho::MoveUp(Level *l)
 {
 	y += STEP_LENGTH;
 
-	if(Collides(l)) {
+	if(!Collides(l)) {
 	
 		y -= STEP_LENGTH;
 		state = STATE_LOOKUP;
@@ -124,7 +125,7 @@ void cBicho::MoveRight(Level *l)
 {
 	x += STEP_LENGTH;
 
-	if(Collides(l)) {
+	if(!Collides(l)) {
 	
 		x -= STEP_LENGTH;
 		state = STATE_LOOKRIGHT;
@@ -143,7 +144,7 @@ void cBicho::MoveDownRight(Level *l)
 	y -= STEP_LENGTH/2;
 	x += STEP_LENGTH/2;
 
-	if(Collides(l)) {
+	if(!Collides(l)) {
 	
 		y += STEP_LENGTH/2;
 		x -= STEP_LENGTH/2;
@@ -162,7 +163,7 @@ void cBicho::MoveDown(Level *l)
 {
 	y -= STEP_LENGTH;
 
-	if(Collides(l)) {
+	if(!Collides(l)) {
 	
 		y += STEP_LENGTH;
 		state = STATE_LOOKDOWN;
@@ -181,7 +182,7 @@ void cBicho::MoveDownLeft(Level *l)
 	y -= STEP_LENGTH/2;
 	x -= STEP_LENGTH/2;
 
-	if(Collides(l)) {
+	if(!Collides(l)) {
 	
 		y += STEP_LENGTH/2;
 		x += STEP_LENGTH/2;
@@ -200,7 +201,7 @@ void cBicho::MoveLeft(Level *l)
 {
 	x -= STEP_LENGTH;
 
-	if(Collides(l)) {
+	if(!Collides(l)) {
 	
 		x += STEP_LENGTH;
 		state = STATE_LOOKLEFT;
@@ -219,7 +220,7 @@ void cBicho::MoveUpLeft(Level *l)
 	y += STEP_LENGTH/2;
 	x -= STEP_LENGTH/2;
 
-	if(Collides(l)) {
+	if(!Collides(l)) {
 	
 		y -= STEP_LENGTH/2;
 		x += STEP_LENGTH/2;

@@ -18,17 +18,17 @@ void MazeRoom::createBackground(void)
 	int m = width/bgTileSize;
 
 	Surface s(n, m);
-	s.perlinNoise(width/2, 0);
+	s.perlinNoise(width/m, 0);
 
-	GLuint bgDisplayList = glGenLists(1);
+	bgDisplayList = glGenLists(1);
 
 	glNewList(bgDisplayList, GL_COMPILE);
 		glBegin(GL_QUADS);
 		for (int i = 0; i < n; ++i) {
 			for (int j = 0; j < m; ++j) {
 
-				float coordx_tile;
-				float coordy_tile;
+				float coordx_tile = 0.0f;
+				float coordy_tile = 0.0f;
 				
 				double z = s.getZ(j, i); 
 
@@ -85,7 +85,7 @@ void MazeRoom::createForeground(void)
 		}
 	}
 
-	GLuint fgDisplayList = glGenLists(1);
+	fgDisplayList = glGenLists(1);
 
 	glNewList(fgDisplayList, GL_COMPILE);
 		glBegin(GL_QUADS);

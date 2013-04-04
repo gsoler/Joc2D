@@ -132,8 +132,7 @@ bool cGame::Process()
 		if (specialkeys[GLUT_KEY_DOWN] > 1) --specialkeys[GLUT_KEY_DOWN];
 		else Player.MoveDown(Scene.GetLevel(level));
 	}
-	else if(specialkeys[GLUT_KEY_LEFT])			{
-		
+	else if(specialkeys[GLUT_KEY_LEFT])	{
 		if (specialkeys[GLUT_KEY_LEFT] > 1) --specialkeys[GLUT_KEY_LEFT];
 		else Player.MoveLeft(Scene.GetLevel(level));
 	}
@@ -214,7 +213,7 @@ void cGame::Render()
 	glClear(GL_COLOR_BUFFER_BIT);
 	int x, y;
 	Player.GetPosition(&x, &y);
-
+	y = PosicioMinima();
 	glLoadIdentity();
 
 	std::cout << y << std::endl;
@@ -224,8 +223,10 @@ void cGame::Render()
 	else if(y < PosPant + GAME_HEIGHT/8 - 50)
 		PosPant -= STEP_LENGTH;
 
-	Scene.Draw(level, PosPant, PosPant + GAME_HEIGHT);
-
+	
+	glTranslatef(0.0f, -PosPant*1.0f, 0.0f);
+	
+	Scene.Draw(0);
 	Player.Draw(Data.GetID(IMG_PLAYER));
 
 	if(secondPlayer) Player2.Draw(Data.GetID(IMG_PLAYER2));

@@ -4,7 +4,6 @@
 
 Level::Level(void)
 {
-	metrics.push_back(0);
 }
 
 
@@ -33,9 +32,9 @@ void Level::addRoom(int heigth, int width, int bgTileSize, int fgTileSize, GLuin
 	room->createRoom();
 	level.push_back(room);
 
-	//if (metrics.empty()) metrics.push_back(room->getHeight());
-	//else metrics.push_back(room->getHeight() + metrics.back()+1);
-	metrics.push_back(room->getHeight() + metrics.back());
+	if (metrics.empty()) metrics.push_back(room->getHeight());
+	else metrics.push_back(room->getHeight() + metrics.back()+1);
+	//metrics.push_back(room->getHeight() + metrics.back() + 1);
 }
 
 int Level::getHeight() 
@@ -44,29 +43,37 @@ int Level::getHeight()
 	return h;
 }
 
-bool Level::collides(int x0, int y0, int x1, int y1) {
-	int i = 0;
-	while (metrics[i] < y0) ++i;
-	--i;
+int Level::getRoom(int start, int h) 
+{
+	int i = start;
+	while (metrics[i] < h) ++i;
 
-	return level[i]->collides(x0-metrics[i], y0, x1 - metrics[i], y1);
+	return i;
+}
+
+bool Level::collides(int x0, int y0, int x1, int y1) {
+	int i = getRoom(0, y0);
+
+	return level[i]->collides(x0, y0-metrics[i], x1, y1-metrics[i]);
 }
 
 void Level::drawLevel(int bottom, int top)
 {
 	//check the constrain
 	if (bottom < top && bottom >= 0 && top <= metrics.back()) {
-		int i = 0;
-		while (metrics[i] < bottom) ++i;
+		int i = getRoom(0, bottom);
 
-		int j = i;
-		while (metrics[j] < top) ++j;
+		int j = getRoom(i, top);
 
 		glPushMatrix();
 		glLoadIdentity();
 
-		float T = metrics[i-1] - bottom;
-		glTranslatef(0.0f, T, 0.0);
+		float T = 0.0f;
+
+		if (i > 0) T = metrics[i-1] - bottom; 
+		else T = bottom;
+
+		glTranslatef(0.0f, -T, 0.0);
 
 		level[i]->drawRoom();
 
@@ -79,4 +86,19 @@ void Level::drawLevel(int bottom, int top)
 
 		glPopMatrix();
 	}
+}
+
+void Level::drawLevel() 
+{
+	glPushMatrix();
+
+	float T = 0.0f;
+	for (int i = 0; i < level.size(); ++i) {
+		glTranslatef(0.0f, T, 0.0f);
+
+		level[i]->drawRoom();
+		T = level[i]->getHeight();
+	}
+
+	glPopMatrix();
 }

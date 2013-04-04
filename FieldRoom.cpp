@@ -17,18 +17,18 @@ void FieldRoom::createBackground()
 	int m = width/bgTileSize;
 
 	Surface s(n, m);
-	s.perlinNoise(width/2, 0);
+	s.perlinNoise(m/2, 0);
 
-	GLuint bgDisplayList = glGenLists(1);
+	bgDisplayList = glGenLists(1);
 
 	glNewList(bgDisplayList, GL_COMPILE);
 		glBegin(GL_QUADS);
 		for (int i = 0; i < n; ++i) {
 			for (int j = 0; j < m; ++j) {
-				float coordx_tile;
-				float coordy_tile;
+				float coordx_tile = 0;
+				float coordy_tile = 0;
 
-				double z = s.getZ(i, j); 
+				double z = s.getZ(j, i); 
 
 				if (z <= -0.5) {
 					coordx_tile = 0.0f;
@@ -50,7 +50,8 @@ void FieldRoom::createBackground()
 				float px = j*bgTileSize;
 				float py = i*bgTileSize;
 
-				glTexCoord2f(coordx_tile,coordy_tile+0.5f);      
+
+				glTexCoord2f(coordx_tile, coordy_tile+0.5f);      
 				glVertex2i(px,py);
 				
 				glTexCoord2f(coordx_tile+0.5f,coordy_tile+0.5f); 
@@ -84,7 +85,7 @@ void FieldRoom::createForeground()
 		collisonMap[i][m-1] = 1;
 	}
 
-	GLuint fgDisplayList = glGenLists(1);
+	fgDisplayList = glGenLists(1);
 
 	glNewList(fgDisplayList, GL_COMPILE);
 		glBegin(GL_QUADS);
@@ -120,6 +121,5 @@ void FieldRoom::createRoom()
 {
 	createBackground();
 	createForeground();
-
 }
 
