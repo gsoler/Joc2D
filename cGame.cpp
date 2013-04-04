@@ -1,7 +1,7 @@
 #include "cGame.h"
 #include "Globals.h"
 #include <iostream>
-
+#include <ctime>
 
 
 cGame::cGame(void)
@@ -16,6 +16,8 @@ cGame::~cGame(void)
 
 bool cGame::Init()
 {
+	srand(time(0));
+
 	bool res=true;
 	nextShot1 = 0;
 	nextShot2 = 0;
@@ -45,7 +47,7 @@ bool cGame::Init()
 	res = Data.LoadImage(IMG_PLAYER2,"player3.png",GL_RGBA);
 	if(!res) return false;
 	Player2.SetWidthHeight(32,32);
-	Player2.SetTile(10,1);
+	Player2.SetTile(5,1);
 	Player2.SetState(STATE_LOOKRIGHT);
 	secondPlayer = true;
 

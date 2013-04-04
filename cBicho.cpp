@@ -221,7 +221,7 @@ void cBicho::MoveUpLeft(Level *l)
 	y += STEP_LENGTH/2;
 	x -= STEP_LENGTH/2;
 
-	if(!Collides(l)) {
+	if(Collides(l)) {
 	
 		y -= STEP_LENGTH/2;
 		x += STEP_LENGTH/2;

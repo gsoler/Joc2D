@@ -37,7 +37,7 @@ bool Room::isProcessable(void)
 
 bool Room::collides(int x0, int y0, int x1, int y1) 
 {
-	if (x0 < 0 || x0 > width || y0 < 0 || y0 > height) return true; 
+	//if (x0 < 0 || x0 > width || y0 < 0 || y0 > height) return true; 
 	
 	int tx = x0/fgTileSize;
 	int ty = y0/fgTileSize;

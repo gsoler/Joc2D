@@ -8,7 +8,7 @@
 #include <vector>
 using namespace std;
 
-#define GAME_WIDTH	640
+#define GAME_WIDTH	640+64
 #define GAME_HEIGHT 480
 
 class cGame

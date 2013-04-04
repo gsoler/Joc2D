@@ -46,15 +46,16 @@ int Level::getHeight()
 int Level::getRoom(int start, int h) 
 {
 	int i = start;
-	while (metrics[i] < h) ++i;
+	while (metrics[i] <= h) ++i;
 
 	return i;
 }
 
 bool Level::collides(int x0, int y0, int x1, int y1) {
 	int i = getRoom(0, y0);
+	int offset = metrics[i] - level[i]->getHeight();
 
-	return level[i]->collides(x0, y0, x1, y1);
+	return level[i]->collides(x0, y0 - offset, x1, y1 - offset);
 }
 
 void Level::drawLevel(int bottom, int top)

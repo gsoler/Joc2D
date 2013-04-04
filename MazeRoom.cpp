@@ -78,12 +78,18 @@ void MazeRoom::createForeground(void)
 	Maze maze(n,m,0,0);
 	maze.generateMaze(0);
 
-
 	for (int i = 0; i < n; ++i) {
 		for (int j = 0; j < m; ++j) {
 			collisonMap[i][j] = maze.isWall(j, i);
 		}
 	}
+	
+	collisonMap[0][m/2] = 0;
+	collisonMap[0][m/2 - 1] = 0;
+
+	collisonMap[n-1][m/2] = 0;
+	collisonMap[n-1][m/2 - 1] = 0;
+
 
 	fgDisplayList = glGenLists(1);
 

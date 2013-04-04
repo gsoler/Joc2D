@@ -12,16 +12,10 @@ cScene::~cScene(void)
 
 void cScene::LoadLevel(cData &data, int n)
 {
-
 	Level l;
-	l.addRoom(800,800,8,10, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::FIELD);
-	l.addRoom(800,800,8,10, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::MAZE);
-	l.addRoom(832,640,8,10, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::FIELD);
-	l.addRoom(600,700,20,10, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::FIELD);
-	l.addRoom(600,700,20,10, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::FIELD);
-
+	l.addRoom(TILE_SIZE*10,TILE_SIZE*11,32,TILE_SIZE, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::FIELD);
+	l.addRoom(TILE_SIZE*11,TILE_SIZE*11,32,TILE_SIZE, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::MAZE);
 	nivells.push_back(l);
-
 }
 
 void cScene::Draw(int level)

@@ -85,6 +85,12 @@ void FieldRoom::createForeground()
 		collisonMap[i][m-1] = 1;
 	}
 
+	collisonMap[0][m/2] = 0;
+	collisonMap[0][m/2 - 1] = 0;
+
+	collisonMap[n-1][m/2] = 0;
+	collisonMap[n-1][m/2 - 1] = 0;
+
 	fgDisplayList = glGenLists(1);
 
 	glNewList(fgDisplayList, GL_COMPILE);
