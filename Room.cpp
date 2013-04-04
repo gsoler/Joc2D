@@ -41,8 +41,8 @@ bool Room::collides(int x0, int y0, int x1, int y1)
 	
 	int tx = x0/fgTileSize;
 	int ty = y0/fgTileSize;
-
-	return (collisonMap[ty][tx] != 0);
+	bool d = (collisonMap[ty][tx] != 0);
+	return d;
 }
 
 void Room::drawRoom() 

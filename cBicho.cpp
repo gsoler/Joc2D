@@ -51,7 +51,8 @@ void cBicho::GetWidthHeight(int *width,int *height)
 }
 bool cBicho::Collides(Level *l)
 {
-	return l->collides(x, y, 0, 0);
+	bool p  = l->collides(x, y, 0, 0);
+	return p;
 }
 
 void cBicho::GetArea(cRect *rc)
@@ -86,7 +87,7 @@ void cBicho::MoveUp(Level *l)
 {
 	y += STEP_LENGTH;
 
-	if(!Collides(l)) {
+	if(Collides(l)) {
 	
 		y -= STEP_LENGTH;
 		state = STATE_LOOKUP;
@@ -125,7 +126,7 @@ void cBicho::MoveRight(Level *l)
 {
 	x += STEP_LENGTH;
 
-	if(!Collides(l)) {
+	if(Collides(l)) {
 	
 		x -= STEP_LENGTH;
 		state = STATE_LOOKRIGHT;
@@ -144,7 +145,7 @@ void cBicho::MoveDownRight(Level *l)
 	y -= STEP_LENGTH/2;
 	x += STEP_LENGTH/2;
 
-	if(!Collides(l)) {
+	if(Collides(l)) {
 	
 		y += STEP_LENGTH/2;
 		x -= STEP_LENGTH/2;
@@ -163,7 +164,7 @@ void cBicho::MoveDown(Level *l)
 {
 	y -= STEP_LENGTH;
 
-	if(!Collides(l)) {
+	if(Collides(l)) {
 	
 		y += STEP_LENGTH;
 		state = STATE_LOOKDOWN;
@@ -182,7 +183,7 @@ void cBicho::MoveDownLeft(Level *l)
 	y -= STEP_LENGTH/2;
 	x -= STEP_LENGTH/2;
 
-	if(!Collides(l)) {
+	if(Collides(l)) {
 	
 		y += STEP_LENGTH/2;
 		x += STEP_LENGTH/2;
@@ -201,7 +202,7 @@ void cBicho::MoveLeft(Level *l)
 {
 	x -= STEP_LENGTH;
 
-	if(!Collides(l)) {
+	if(Collides(l)) {
 	
 		x += STEP_LENGTH;
 		state = STATE_LOOKLEFT;

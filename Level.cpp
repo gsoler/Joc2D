@@ -54,7 +54,7 @@ int Level::getRoom(int start, int h)
 bool Level::collides(int x0, int y0, int x1, int y1) {
 	int i = getRoom(0, y0);
 
-	return level[i]->collides(x0, y0-metrics[i], x1, y1-metrics[i]);
+	return level[i]->collides(x0, y0, x1, y1);
 }
 
 void Level::drawLevel(int bottom, int top)
