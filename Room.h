@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <gl/glut.h>
-//#include "Enemy.h"
+#include "cShot.h"
 
 class Room
 {
@@ -26,7 +26,10 @@ protected:
 	Matrix collisonMap;
 
 	//std::vector<Enemy*> enemies;
-	//std::vector<std::pair<int, int> > bullets;
+	//std::vector<cShot> bullets;
+
+	void processBullet(int i);
+	void processEnemy(int i);
 
 public:
 	Room(int height, int width, int bgTileSize, int fgTileSize, GLuint fgTexId, GLuint bgTexId);

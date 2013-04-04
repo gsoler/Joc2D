@@ -52,12 +52,23 @@ void Room::addEnemy(int x, int y)
 
 void Room::addBullet(int x, int y)
 {
+	//bullets.push_back(cShot(x, y));
+}
+
+void Room::processBullet(int i) 
+{
+	
+}
+
+void Room::processEnemy(int i)
+{
 
 }
 
-void Room::process(int x1, int y1, int x2, int y2 ) 
+void Room::process(int x1, int y1, int x2, int y2) 
 {
-
+	//for (int i = 0; i < bullets.size(); ++i) processBullet(i);
+	//for (int i = 0; i < enemies.size(); ++i) processEnemy(i);
 }
 
 void Room::drawRoom() 

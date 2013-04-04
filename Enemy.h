@@ -1,6 +1,8 @@
+#pragma once
+
 #include "cBicho.h"
 
-#pragma once
+
 class Enemy
 {
 public:
