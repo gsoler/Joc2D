@@ -45,6 +45,21 @@ bool Room::collides(int x0, int y0, int x1, int y1)
 	return d;
 }
 
+void Room::addEnemy(int x, int y) 
+{
+
+}
+
+void Room::addBullet(int x, int y)
+{
+
+}
+
+void Room::process(int x1, int y1, int x2, int y2 ) 
+{
+
+}
+
 void Room::drawRoom() 
 {
 	glEnable(GL_TEXTURE_2D);

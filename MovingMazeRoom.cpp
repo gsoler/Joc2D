@@ -63,7 +63,7 @@ void MovingMazeRoom::drawBlock(Vec2 b)
 
 void MovingMazeRoom::drawRoom() {
 
-	MazeRoom::drawRoom();
+	Room::drawRoom();
 
 	for (Iter it = blocks.begin(); it != blocks.end(); ++it) {
 		drawBlock(*it);
@@ -72,5 +72,7 @@ void MovingMazeRoom::drawRoom() {
 
 void MovingMazeRoom::procces(void) 
 {
-	
+	for (Iter it = blocks.begin(); it != blocks.end(); ++it) {
+		
+	}
 }

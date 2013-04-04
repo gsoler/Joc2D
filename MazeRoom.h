@@ -12,5 +12,6 @@ public:
 	virtual ~MazeRoom(void);
 
 	virtual void createRoom(void);
+	
 };
 
