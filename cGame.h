@@ -37,6 +37,7 @@ private:
 	bool secondPlayer;
 	int PosPant;
 	int Direction;
+	bool repressed;
 	unsigned char keys[256];
 	unsigned char specialkeys[256];
 	cScene Scene;

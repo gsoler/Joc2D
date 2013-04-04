@@ -21,6 +21,7 @@ bool cGame::Init()
 	bool res=true;
 	nextShot1 = 0;
 	nextShot2 = 0;
+	repressed = true;
 
 	//Graphics initialization
 	glClearColor(0.0f,0.0f,0.0f,0.0f);
@@ -101,6 +102,7 @@ void cGame::ReadKeyboard(unsigned char key, int x, int y, bool press, bool speci
 	}
 	else {
 		keys[key] = press;
+		if(key == 'p') repressed = true;
 		if (!press) {
 			keys[GLUT_KEY_UP]*= 3;
 			keys[GLUT_KEY_DOWN]*= 3;
@@ -120,7 +122,13 @@ bool cGame::Process()
 	bool res=true;
 	
 	//Process Input
-	if(keys[27])	res=false;
+	if(keys[27])	res=false; 
+
+	if(keys['p'] && repressed) {
+		if(secondPlayer) secondPlayer = false;
+		else secondPlayer = true;
+		repressed = false;
+	}
 	
 	if(specialkeys[GLUT_KEY_UP] && specialkeys[GLUT_KEY_LEFT]) {
 		Player.MoveUpLeft(Scene.GetLevel(level));
