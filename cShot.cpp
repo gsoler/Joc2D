@@ -47,6 +47,8 @@ void cShot::Draw(int tex_id)
 		glTexCoord2f(xo,yf);	glVertex2i(screen_x  ,screen_y+h);
 	glEnd();
 
+	glDisable(GL_TEXTURE_2D);
+
 	++frame;
 	if(frame == 8) frame = 0;
 }

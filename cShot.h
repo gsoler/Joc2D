@@ -1,11 +1,9 @@
 #pragma once
 
-#include "cBicho.h"
-
 #define STATE_SHOT_END 0
 #define STATE_SHOTING 1
 
-class cShot : public cBicho
+class cShot
 {
 public:
 	cShot(int x, int y);

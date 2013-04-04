@@ -1,6 +1,5 @@
 #include "Room.h"
 
-
 Room::Room(int height, int width, int bgTileSize, int fgTileSize, GLuint fgTexId, GLuint bgTexId)
 {
 	this->height = height;
@@ -11,8 +10,6 @@ Room::Room(int height, int width, int bgTileSize, int fgTileSize, GLuint fgTexId
 	
 	this->fgTexId = fgTexId;
 	this->bgTexId = bgTexId;
-
-	processable = false;
 }
 
 
@@ -28,11 +25,6 @@ int Room::getWidth(void)
 int Room::getHeight(void)  
 {
 	return height;
-}
-
-bool Room::isProcessable(void) 
-{
-	return processable;
 }
 
 bool Room::collides(int x0, int y0, int x1, int y1) 
@@ -52,12 +44,12 @@ void Room::addEnemy(int x, int y)
 
 void Room::addBullet(int x, int y)
 {
-	//bullets.push_back(cShot(x, y));
+	bullets.push_back(cShot(x, y));
 }
 
 void Room::processBullet(int i) 
 {
-	
+	bullets[i].
 }
 
 void Room::processEnemy(int i)
@@ -67,7 +59,7 @@ void Room::processEnemy(int i)
 
 void Room::process(int x1, int y1, int x2, int y2) 
 {
-	//for (int i = 0; i < bullets.size(); ++i) processBullet(i);
+	for (int i = 0; i < bullets.size(); ++i) processBullet(i);
 	//for (int i = 0; i < enemies.size(); ++i) processEnemy(i);
 }
 

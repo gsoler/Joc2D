@@ -223,6 +223,7 @@ bool cGame::Process()
 		if(nextShot1 <= 0){
 			int x, y;
 			Player.GetPosition(&x,&y);
+			Scene.addShot(x + TILE_SIZE/2, y + TILE_SIZE/2, Player.GetState());
 			cShot Shot = cShot(x + TILE_SIZE/2, y + TILE_SIZE/2); //Inicialitzem el shot a la posicio del jugador, en el centre d l'sprite
 			Shot.SetWidthHeight(10,10);
 			Shot.SetState(STATE_SHOTING);

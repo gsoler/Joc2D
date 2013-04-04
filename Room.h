@@ -9,8 +9,6 @@ class Room
 protected:
 	typedef std::vector<std::vector<int> > Matrix;
 
-	bool processable;
-
 	int width;
 	int height;
 
@@ -26,7 +24,7 @@ protected:
 	Matrix collisonMap;
 
 	//std::vector<Enemy*> enemies;
-	//std::vector<cShot> bullets;
+	std::vector<cShot> bullets;
 
 	void processBullet(int i);
 	void processEnemy(int i);
@@ -37,8 +35,6 @@ public:
 
 	int getWidth(void);
 	int getHeight(void);
-
-	bool isProcessable(void);
 
 	bool collides(int x, int y, int tx, int ty);
 

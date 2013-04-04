@@ -36,6 +36,9 @@ public:
 class cBicho
 {
 public:
+
+	//typedef int Level;
+
 	cBicho(void);
 	cBicho(int x,int y,int w,int h);
 	~cBicho(void);
@@ -69,6 +72,7 @@ public:
 	int  GetFrame();
 	
 private:
+
 	int x,y;
 	int w,h;
 	int state;
