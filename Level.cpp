@@ -1,6 +1,7 @@
 #include "Level.h"
 #include "FieldRoom.h"
 #include "MazeRoom.h"
+#include "MovingMazeRoom.h"
 
 Level::Level(void)
 {
@@ -27,6 +28,9 @@ void Level::addRoom(int heigth, int width, int bgTileSize, int fgTileSize, GLuin
 	}
 	else if (roomType == MAZE) {
 		room = new MazeRoom(heigth, width, bgTileSize, fgTileSize, fgTexId, bgTexId);
+	}
+	else if (roomType == MMAZE) {
+		room = new MovingMazeRoom(heigth, width, bgTileSize, fgTileSize, fgTexId, bgTexId);
 	}
 	
 	room->createRoom();

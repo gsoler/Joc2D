@@ -14,7 +14,7 @@ private:
 	int getRoom(int start, int end);
 
 public:
-	static const enum RoomType {FIELD, MAZE};
+	static const enum RoomType {FIELD, MAZE, MMAZE};
 
 	Level(void);
 	~Level(void);

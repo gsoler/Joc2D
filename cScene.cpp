@@ -13,8 +13,9 @@ cScene::~cScene(void)
 void cScene::LoadLevel(cData &data, int n)
 {
 	Level l;
-	l.addRoom(TILE_SIZE*10,TILE_SIZE*11,32,TILE_SIZE, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::FIELD);
+	l.addRoom(TILE_SIZE*11,TILE_SIZE*11,32,TILE_SIZE, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::FIELD);
 	l.addRoom(TILE_SIZE*11,TILE_SIZE*11,32,TILE_SIZE, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::MAZE);
+	l.addRoom(TILE_SIZE*11,TILE_SIZE*11,32,TILE_SIZE, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::MMAZE);
 	nivells.push_back(l);
 }
 
