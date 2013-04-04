@@ -23,7 +23,7 @@ public:
 	virtual ~cScene(void);
 
 	void LoadLevel(cData &data, int n);
-	void Draw(int level, int bottom, int top);
+	void Draw(int level);
 	Level* GetLevel(int level);
 
 private:

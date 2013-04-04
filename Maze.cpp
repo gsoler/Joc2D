@@ -75,7 +75,7 @@ void Maze::generateMaze(unsigned int seed)
 }
 
 int Maze::isWall(int x, int y) {
-	return maze[x][y];
+	return maze[y][x];
 }
 
 void Maze::swap(int& x, int& y) {

@@ -11,6 +11,8 @@ private:
 	std::vector<Room*> level;
 	std::vector<int> metrics;
 
+	int getRoom(int start, int end);
+
 public:
 	static const enum RoomType {FIELD, MAZE};
 
@@ -24,6 +26,7 @@ public:
 
 	bool collides(int x, int y, int xt, int yt);
 
+	void drawLevel();
 	void drawLevel(int bottom, int top);
 };
 

@@ -16,6 +16,8 @@ void MovingMazeRoom::createRoom(void)
 {
 	MazeRoom::createRoom();
 
+	int n = collisonMap.size();
+
 	
 }
 
