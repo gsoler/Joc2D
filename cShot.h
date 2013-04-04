@@ -20,6 +20,7 @@ private:
 	float x,y;
 	int w,h;
 	int state;
+	int frame;
 
 	struct {
 		float x;

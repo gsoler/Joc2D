@@ -17,6 +17,8 @@ cGame::~cGame(void)
 bool cGame::Init()
 {
 	bool res=true;
+	nextShot1 = 0;
+	nextShot2 = 0;
 
 	//Graphics initialization
 	glClearColor(0.0f,0.0f,0.0f,0.0f);
@@ -29,7 +31,7 @@ bool cGame::Init()
 	glEnable(GL_ALPHA_TEST);
 
 	//Scene initialization
-	res = Data.LoadImage(IMG_BLOCKS,"blocks.png",GL_RGBA);
+	res = Data.LoadImage(IMG_BLOCKS,"textures.png",GL_RGBA);
 	if(!res) return false;
 	
 	//Player initialization
@@ -49,6 +51,12 @@ bool cGame::Init()
 
 	//Shot initialization
 	res = Data.LoadImage(IMG_SHOT,"shot.png",GL_RGBA);
+	if(!res) return false;
+
+	//Enemies initialization
+	res = Data.LoadImage(IMG_ENEMY1,"enemy1.png",GL_RGBA);
+	if(!res) return false;
+	res = Data.LoadImage(IMG_ENEMY2,"enemy2.png",GL_RGBA);
 	if(!res) return false;
 
 	Scene.LoadLevel(Data, 1);
@@ -132,7 +140,8 @@ bool cGame::Process()
 		if (specialkeys[GLUT_KEY_DOWN] > 1) --specialkeys[GLUT_KEY_DOWN];
 		else Player.MoveDown(Scene.GetLevel(level));
 	}
-	else if(specialkeys[GLUT_KEY_LEFT])	{
+	else if(specialkeys[GLUT_KEY_LEFT])			{
+		
 		if (specialkeys[GLUT_KEY_LEFT] > 1) --specialkeys[GLUT_KEY_LEFT];
 		else Player.MoveLeft(Scene.GetLevel(level));
 	}
@@ -163,7 +172,7 @@ bool cGame::Process()
 		if (keys['s'] > 1) --keys['s'];
 		else Player2.MoveDown(Scene.GetLevel(level));
 	}
-	if(keys['a'])			{
+	else if(keys['a'])			{
 		if (keys['a'] > 1) --keys['a'];
 		else Player2.MoveLeft(Scene.GetLevel(level));
 	}
@@ -178,27 +187,34 @@ bool cGame::Process()
 	
 	if(keys['-'])					{
 		
-		int x, y;
-		Player.GetPosition(&x,&y);
-		cShot Shot = cShot(x + TILE_SIZE/2, y + TILE_SIZE/2); //Inicialitzem el shot a la posicio del jugador, en el centre d l'sprite
-		Shot.SetWidthHeight(7,7);
-		Shot.SetState(STATE_SHOTING);
-		Shot.SetDirection(Player.GetState());
-		Shots.push_back(Shot);
+		if(nextShot1 <= 0){
+			int x, y;
+			Player.GetPosition(&x,&y);
+			cShot Shot = cShot(x + TILE_SIZE/2, y + TILE_SIZE/2); //Inicialitzem el shot a la posicio del jugador, en el centre d l'sprite
+			Shot.SetWidthHeight(10,10);
+			Shot.SetState(STATE_SHOTING);
+			Shot.SetDirection(Player.GetState());
+			Shots.push_back(Shot);
+			nextShot1 = 10;
+		}
+		else --nextShot1;
 
 	}
 	if(keys[' '])					{
 		
-		int x, y;
-		Player2.GetPosition(&x,&y);
-		cShot Shot = cShot(x + TILE_SIZE/2, y + TILE_SIZE/2); //Inicialitzem el shot a la posicio del jugador, en el centre d l'sprite
-		Shot.SetWidthHeight(7,7);
-		Shot.SetState(STATE_SHOTING);
-		Shot.SetDirection(Player2.GetState());
-		Shots2.push_back(Shot);
+		if(nextShot2 <= 0){
+			int x, y;
+			Player2.GetPosition(&x,&y);
+			cShot Shot = cShot(x + TILE_SIZE/2, y + TILE_SIZE/2); //Inicialitzem el shot a la posicio del jugador, en el centre d l'sprite
+			Shot.SetWidthHeight(7,7);
+			Shot.SetState(STATE_SHOTING);
+			Shot.SetDirection(Player2.GetState());
+			Shots2.push_back(Shot);
+			nextShot2 = 10;
+		}
+		else --nextShot2;
 
 	}
-
 	
 	
 	//Game Logic

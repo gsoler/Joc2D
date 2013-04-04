@@ -93,6 +93,7 @@
     <ClCompile Include="cScene.cpp" />
     <ClCompile Include="cShot.cpp" />
     <ClCompile Include="cTexture.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FieldRoom.cpp" />
     <ClCompile Include="GLUTMain.cpp" />
     <ClCompile Include="Level.cpp" />
@@ -112,6 +113,7 @@
     <ClInclude Include="cScene.h" />
     <ClInclude Include="cShot.h" />
     <ClInclude Include="cTexture.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="FieldRoom.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="Level.h" />

@@ -33,6 +33,7 @@ private:
 	int PosicioMinima();
 
 	int level;
+	int nextShot1, nextShot2;
 	bool secondPlayer;
 	int PosPant;
 	int Direction;
