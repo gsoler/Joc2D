@@ -72,10 +72,14 @@ void Level::addBullet(int x, int y, int d)
 
 }
 
-void Level::proccess(int x0, int y0, int x1, int y1)
+int Level::proccess(int x0, int y0, int x1, int y1)
 {
 	int i = getRoom(0, y0);
-	level[i]->process(x0, y0, x1, y1);
+	int offset = metrics[i] - level[i]->getHeight();
+
+	level[i]->process(x0, y0 - offset, x1, y1 - offset);
+
+	return 0;
 }
 
 void Level::drawLevel(int bottom, int top)

@@ -167,7 +167,7 @@ bool cGame::Process()
 		if (keys[' ']) Scene.movePlayer(1, cScene::SHOT);
 	}
 
-	return Scene.process();
+	return Scene.process(AI);
 }
 
 //Output

@@ -4,7 +4,7 @@
 #include "Level.h"
 #include "cPlayer.h"
 #include "cData.h"
-#include <vector>
+#include "AIEngine.h"
 
 #define SCENE_Xo		0
 #define SCENE_Yo		0
@@ -27,9 +27,7 @@ public:
 
 	bool initScene();
 
-	void LoadLevels();
-
-	bool process();
+	bool process(AIEngine& AI);
 
 	void Draw(int h);
 
@@ -42,6 +40,7 @@ private:
 	float T;
 	int currentLevel;
 
+	void LoadLevels();
 	void addShot(int p);
 
 	cData data;

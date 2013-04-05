@@ -3,7 +3,7 @@
 #include "cBicho.h"
 
 
-class Enemy
+class Enemy : public cBicho
 {
 public:
 	Enemy(void);
@@ -13,6 +13,4 @@ public:
 
 private:
 	int state;
-	cBicho bicho;
-
 };

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cScene.h"
+#include "AIEngine.h"
 
 #define GAME_WIDTH	640+64
 #define GAME_HEIGHT 480
@@ -30,4 +31,5 @@ private:
 	unsigned char specialkeys[256];
 	
 	cScene Scene;
+	AIEngine AI;
 };

@@ -49,11 +49,6 @@ void cBicho::GetWidthHeight(int *width,int *height)
 	*width = w;
 	*height = h;
 }
-bool cBicho::Collides(Level& l)
-{
-	bool p  = l.collides(x, y, 0, 0);
-	return p;
-}
 
 void cBicho::GetArea(cRect *rc)
 {
@@ -83,163 +78,103 @@ void cBicho::DrawRect(int tex_id,float xo,float yo,float xf,float yf)
 	glDisable(GL_TEXTURE_2D);
 }
 
-void cBicho::MoveUp(Level& l)
+void cBicho::MoveUp()
 {
 	y += STEP_LENGTH;
 
-	if(Collides(l)) {
-	
-		y -= STEP_LENGTH;
-		state = STATE_LOOKUP;
-	}
-	else {
-		if(state != STATE_WALKUP)
-		{
-			state = STATE_WALKUP;
-			seq = 0;
-			delay = 0;
-		}
+	if(state != STATE_WALKUP)
+	{
+		state = STATE_WALKUP;
+		seq = 0;
+		delay = 0;
 	}
 }
 
-void cBicho::MoveUpRight(Level& l)
+void cBicho::MoveUpRight()
 {
 	y += STEP_LENGTH/2;
 	x += STEP_LENGTH/2;
 
-	if(Collides(l)) {
-	
-		y -= STEP_LENGTH/2;
-		x -= STEP_LENGTH/2;
-		state = STATE_LOOKUPRIGHT;
-	}
-	else {
-		if(state != STATE_WALKUPRIGHT)
-		{
-			state = STATE_WALKUPRIGHT;
-			seq = 0;
-			delay = 0;
-		}
+	if(state != STATE_WALKUPRIGHT)
+	{
+		state = STATE_WALKUPRIGHT;
+		seq = 0;
+		delay = 0;
 	}
 }
 
-void cBicho::MoveRight(Level& l)
+void cBicho::MoveRight()
 {
 	x += STEP_LENGTH;
 
-	if(Collides(l)) {
-	
-		x -= STEP_LENGTH;
-		state = STATE_LOOKRIGHT;
-	}
-	else {
-		if(state != STATE_WALKRIGHT)
-		{
-			state = STATE_WALKRIGHT;
-			seq = 0;
-			delay = 0;
-		}
+	if(state != STATE_WALKRIGHT)
+	{
+		state = STATE_WALKRIGHT;
+		seq = 0;
+		delay = 0;
 	}
 }
 
-void cBicho::MoveDownRight(Level& l)
+void cBicho::MoveDownRight()
 {
 	y -= STEP_LENGTH/2;
 	x += STEP_LENGTH/2;
-
-	if(Collides(l)) {
 	
-		y += STEP_LENGTH/2;
-		x -= STEP_LENGTH/2;
-		state = STATE_LOOKDOWNRIGHT;
-	}
-	else {
-		if(state != STATE_WALKDOWNRIGHT)
-		{
-			state = STATE_WALKDOWNRIGHT;
-			seq = 0;
-			delay = 0;
-		}
+	if(state != STATE_WALKDOWNRIGHT)
+	{
+		state = STATE_WALKDOWNRIGHT;
+		seq = 0;
+		delay = 0;
 	}
 }
 
-void cBicho::MoveDown(Level& l)
+void cBicho::MoveDown()
 {
 	y -= STEP_LENGTH;
 
-	if(Collides(l)) {
-	
-		y += STEP_LENGTH;
-		state = STATE_LOOKDOWN;
-	}
-	else {
-		if(state != STATE_WALKDOWN)
-		{
-			state = STATE_WALKDOWN;
-			seq = 0;
-			delay = 0;
-		}
+	if(state != STATE_WALKDOWN)
+	{
+		state = STATE_WALKDOWN;
+		seq = 0;
+		delay = 0;
 	}
 }
 
-void cBicho::MoveDownLeft(Level& l)
+void cBicho::MoveDownLeft()
 {
 	y -= STEP_LENGTH/2;
 	x -= STEP_LENGTH/2;
 
-	if(Collides(l)) {
-	
-		y += STEP_LENGTH/2;
-		x += STEP_LENGTH/2;
-		state = STATE_LOOKDOWNLEFT;
-	}
-	else {
-		if(state != STATE_WALKDOWNLEFT)
-		{
-			state = STATE_WALKDOWNLEFT;
-			seq = 0;
-			delay = 0;
-		}
+	if(state != STATE_WALKDOWNLEFT)
+	{
+		state = STATE_WALKDOWNLEFT;
+		seq = 0;
+		delay = 0;
 	}
 }
 
-void cBicho::MoveLeft(Level& l)
+void cBicho::MoveLeft()
 {
 	x -= STEP_LENGTH;
 
-	if(Collides(l)) {
-	
-		x += STEP_LENGTH;
-		state = STATE_LOOKLEFT;
-	}
-	else {
-		if(state != STATE_WALKLEFT)
-		{
-			state = STATE_WALKLEFT;
-			seq = 0;
-			delay = 0;
-		}
+	if(state != STATE_WALKLEFT)
+	{
+		state = STATE_WALKLEFT;
+		seq = 0;
+		delay = 0;
 	}
 }
 
-void cBicho::MoveUpLeft(Level& l)
+void cBicho::MoveUpLeft()
 {
 	y += STEP_LENGTH/2;
 	x -= STEP_LENGTH/2;
 
-	if(Collides(l)) {
-	
-		y -= STEP_LENGTH/2;
-		x += STEP_LENGTH/2;
-		state = STATE_LOOKUPLEFT;
-	}
-	else {
-		if(state != STATE_WALKUPLEFT)
-		{
-			state = STATE_WALKUPLEFT;
-			seq = 0;
-			delay = 0;
-		}
+	if(state != STATE_WALKUPLEFT)
+	{
+		state = STATE_WALKUPLEFT;
+		seq = 0;
+		delay = 0;
 	}
 }
 

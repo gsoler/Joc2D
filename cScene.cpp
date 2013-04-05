@@ -110,7 +110,7 @@ void cScene::addShot(int p)
 	}
 }
 
-bool cScene::process()
+bool cScene::process(AIEngine& AI)
 {
 	int x0; 
 	int y0;
@@ -119,7 +119,11 @@ bool cScene::process()
 
 	players[0].GetPosition(&x0, &y0);
 	players[1].GetPosition(&x1, &y1);
-	nivells[currentLevel].proccess(x0, y0, x1, y1);
+	
+	int flag = nivells[currentLevel].proccess(x0, y0, x1, y1);
+	
+	if (flag == 1) currentLevel = 1;
+	else if (flag == 2) return false;
 	return true;
 }
 

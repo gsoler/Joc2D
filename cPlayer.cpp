@@ -75,6 +75,11 @@ void cPlayer::Draw(int tex_id)
 	DrawRect(tex_id,xo,yo,xf,yf);
 }
 
+bool cPlayer::Collides(Level& l)
+{
+	return l.collides(x, y, 0, 0);
+}
+
 bool cPlayer::shoot() 
 {
 	if (coolDown == 0) {
@@ -84,5 +89,144 @@ bool cPlayer::shoot()
 	else {
 		--coolDown;
 		return false;
+	}
+}
+
+void cPlayer::MoveUp(Level& l)
+{
+	y += STEP_LENGTH;
+
+	if(Collides(l)) {
+		y -= STEP_LENGTH;
+		state = STATE_LOOKUP;
+	}
+	else {
+		y -= STEP_LENGTH;
+		
+		cBicho::MoveUp();
+	}
+}
+
+void cPlayer::MoveUpRight(Level& l)
+{
+	y += STEP_LENGTH/2;
+	x += STEP_LENGTH/2;
+
+	if(Collides(l)) {
+		y -= STEP_LENGTH/2;
+		x -= STEP_LENGTH/2;
+
+		state = STATE_LOOKUPRIGHT;
+	}
+	else {
+		y -= STEP_LENGTH/2;
+		x -= STEP_LENGTH/2;
+
+		cBicho::MoveUpRight();
+	}
+}
+
+void cPlayer::MoveRight(Level& l)
+{
+	x += STEP_LENGTH;
+
+	if (Collides(l)) {
+		x -= STEP_LENGTH;
+		
+		state = STATE_LOOKRIGHT;
+	}
+	else {
+		x -= STEP_LENGTH;
+
+		cBicho::MoveRight();
+	}
+}
+
+void cPlayer::MoveDownRight(Level& l)
+{
+	y -= STEP_LENGTH/2;
+	x += STEP_LENGTH/2;
+
+	if(Collides(l)) {
+		y += STEP_LENGTH/2;
+		x -= STEP_LENGTH/2;
+		
+		state = STATE_LOOKDOWNRIGHT;
+	}
+	else {
+		y += STEP_LENGTH/2;
+		x -= STEP_LENGTH/2;
+		
+		cBicho::MoveDownRight();
+	}
+}
+
+void cPlayer::MoveDown(Level& l)
+{
+	y -= STEP_LENGTH;
+
+	if(Collides(l)) {
+		y += STEP_LENGTH;
+
+		state = STATE_LOOKDOWN;
+	}
+	else {
+		y += STEP_LENGTH;
+
+		cBicho::MoveDown();
+	}
+}
+
+void cPlayer::MoveDownLeft(Level& l)
+{
+	y -= STEP_LENGTH/2;
+	x -= STEP_LENGTH/2;
+
+	if(Collides(l)) {
+		y += STEP_LENGTH/2;
+		x += STEP_LENGTH/2;
+
+		state = STATE_LOOKDOWNLEFT;
+	}
+	else {
+		y += STEP_LENGTH/2;
+		x += STEP_LENGTH/2;
+
+		cBicho::MoveDownLeft();
+	}
+}
+
+void cPlayer::MoveLeft(Level& l)
+{
+	x -= STEP_LENGTH;
+
+	if(Collides(l)) {
+		x += STEP_LENGTH;
+
+		state = STATE_LOOKLEFT;
+	}
+	else {
+		x += STEP_LENGTH;
+
+		cBicho::MoveLeft();
+	}
+}
+
+void cPlayer::MoveUpLeft(Level& l)
+{
+	y += STEP_LENGTH/2;
+	x -= STEP_LENGTH/2;
+
+	if(Collides(l)) {
+		y -= STEP_LENGTH/2;
+		x += STEP_LENGTH/2;
+
+		state = STATE_LOOKUPLEFT;
+	}
+	else {
+		y -= STEP_LENGTH/2;
+		x += STEP_LENGTH/2;
+
+		cBicho::MoveUpLeft();
 	}
 }

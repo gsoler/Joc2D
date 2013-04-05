@@ -43,41 +43,41 @@ void Enemy::Draw(int tex_id){
 
 
 		//1..3
-		case STATE_WALKUP:			xo = 5.0f/6.0f + (bicho.GetFrame()*1.0f/6.0f); yo = 5.0f/8.0f;
-									bicho.NextFrame(6);
+		case STATE_WALKUP:			xo = 5.0f/6.0f + (GetFrame()*1.0f/6.0f); yo = 5.0f/8.0f;
+									NextFrame(6);
 									break;
 		//4..6
-		case STATE_WALKUPRIGHT:		xo = 5.0f/6.0f + (bicho.GetFrame()*1.0f/6.0f); yo = 4.0f/8.0f;
-									bicho.NextFrame(6);
+		case STATE_WALKUPRIGHT:		xo = 5.0f/6.0f + (GetFrame()*1.0f/6.0f); yo = 4.0f/8.0f;
+									NextFrame(6);
 									break;
 		//1..3
-		case STATE_WALKRIGHT:		xo = 5.0f/6.0f + (bicho.GetFrame()*1.0f/6.0f); yo = 3.0f/8.0f;
-									bicho.NextFrame(6);
+		case STATE_WALKRIGHT:		xo = 5.0f/6.0f + (GetFrame()*1.0f/6.0f); yo = 3.0f/8.0f;
+									NextFrame(6);
 									break;
 		//4..6
-		case STATE_WALKDOWNRIGHT:	xo = 5.0f/6.0f + (bicho.GetFrame()*1.0f/6.0f); yo = 2.0f/8.0f;
-									bicho.NextFrame(6);
+		case STATE_WALKDOWNRIGHT:	xo = 5.0f/6.0f + (GetFrame()*1.0f/6.0f); yo = 2.0f/8.0f;
+									NextFrame(6);
 									break;
 		//1..3
-		case STATE_WALKDOWN:		xo = 5.0f/6.0f + (bicho.GetFrame()*1.0f/6.0f); yo = 1.0f/8.0f;
-									bicho.NextFrame(6);
+		case STATE_WALKDOWN:		xo = 5.0f/6.0f + (GetFrame()*1.0f/6.0f); yo = 1.0f/8.0f;
+									NextFrame(6);
 									break;
 		//4..6
-		case STATE_WALKDOWNLEFT:	xo = 5.0f/6.0f + (bicho.GetFrame()*1.0f/6.0f); yo = 0.0f/8.0f;
-									bicho.NextFrame(6);
+		case STATE_WALKDOWNLEFT:	xo = 5.0f/6.0f + (GetFrame()*1.0f/6.0f); yo = 0.0f/8.0f;
+									NextFrame(6);
 									break;
 		//1..3
-		case STATE_WALKLEFT:		xo = 5.0f/6.0f + (bicho.GetFrame()*1.0f/6.0f); yo = 7.0f/8.0f;
-									bicho.NextFrame(6);
+		case STATE_WALKLEFT:		xo = 5.0f/6.0f + (GetFrame()*1.0f/6.0f); yo = 7.0f/8.0f;
+									NextFrame(6);
 									break;
 		//4..6
-		case STATE_WALKUPLEFT:		xo = 5.0f/6.0f + (bicho.GetFrame()*1.0f/6.0f); yo = 6.0f/8.0f;
-									bicho.NextFrame(6);
+		case STATE_WALKUPLEFT:		xo = 5.0f/6.0f + (GetFrame()*1.0f/6.0f); yo = 6.0f/8.0f;
+									NextFrame(6);
 									break;
 	}
 	xf = xo + 1.0f/6.0f;
 	yf = yo - 1.0f/8.0f;
 
-	bicho.DrawRect(tex_id,xo,yo,xf,yf);
+	DrawRect(tex_id,xo,yo,xf,yf);
 }
 

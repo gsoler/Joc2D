@@ -3,6 +3,7 @@
 #include <vector>
 #include <gl/glut.h>
 #include "cShot.h"
+#include "Enemy.h"
 
 class Room
 {
@@ -23,13 +24,18 @@ protected:
 
 	Matrix collisonMap;
 
-	//std::vector<Enemy*> enemies;
+	std::vector<Enemy> shooters;
+	std::vector<Enemy> kamikazes;
 	std::vector<cShot> bullets;
 
 	void processBullet(int i);
-	void processEnemy(int i);
+	void processShooter(int i, int x1, int y1, int x2, int y2);
+	void processKamikazes(int i, int x1, int y1, int x2, int y2);
 
 public:
+
+	static const enum EnemyType{SHOOTER, KAMIKAZE};
+
 	Room(int height, int width, int bgTileSize, int fgTileSize, GLuint fgTexId, GLuint bgTexId);
 	virtual ~Room(void);
 
@@ -44,7 +50,7 @@ public:
 
 	void deleteDisplayLists(void);
 
-	void addEnemy(int x, int y);
+	void addEnemy(int x, int y, EnemyType t);
 	void addBullet(int x, int y, int d);
 
 	virtual void process(int x1, int y1, int x2, int y2); 
