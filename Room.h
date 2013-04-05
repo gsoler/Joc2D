@@ -44,7 +44,7 @@ public:
 	int getWidth(void);
 	int getHeight(void);
 
-	bool collides(int x, int y, int tx, int ty);
+	int collides(int x, int y, int tx, int ty);
 
 	virtual void createRoom(void) = 0;
 

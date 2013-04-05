@@ -27,10 +27,12 @@ int Room::getHeight(void)
 	return height;
 }
 
-bool Room::collides(int x0, int y0, int x1, int y1) 
+int Room::collides(int x0, int y0, int x1, int y1) 
 {
 	int tx = x0/fgTileSize;
 	int ty = y0/fgTileSize;
+
+	for (int i = 0; i < kamikazes.size(); ++i); 
 
 	if (ty >=  collisonMap.size()) return true;
 	return (collisonMap[ty][tx] != 0);

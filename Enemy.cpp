@@ -13,6 +13,7 @@ Enemy::~Enemy(void)
 
 void Enemy::parseAI(const std::vector<Vec2>& path)
 {
+	Vec2 last = path.back();
 	for (int i = 0; i < path.size(); ++i) {
 		
 	}

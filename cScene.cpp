@@ -61,7 +61,7 @@ void cScene::LoadLevels()
 	nivells[0].addRoom(TILE_SIZE*11,TILE_SIZE*11,32,TILE_SIZE, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::FIELD);
 
 	nivells[0].addEnemy(300, 300, Room::KAMIKAZE);
-	nivells[0].addEnemy(300, 320, Room::KAMIKAZE);
+	nivells[0].addEnemy(300, 340, Room::SHOOTER);
 
 	nivells[1].addRoom(TILE_SIZE*11,TILE_SIZE*11,32,TILE_SIZE, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::FIELD);
 	nivells[1].addRoom(TILE_SIZE*11,TILE_SIZE*11,32,TILE_SIZE, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::FIELD);
