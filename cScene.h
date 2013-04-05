@@ -2,6 +2,7 @@
 
 #include "cTexture.h"
 #include "Level.h"
+#include "cPlayer.h"
 #include "cData.h"
 #include <vector>
 
@@ -19,13 +20,29 @@
 class cScene
 {
 public:
+	static const enum MoveType{UP, DOWN, RIGHT, LEFT, UPR, DOWNL, UPL, DOWNR, STOP, SHOT};
+
 	cScene(void);
 	virtual ~cScene(void);
 
-	void LoadLevel(cData &data, int n);
-	void Draw(int level);
-	Level* GetLevel(int level);
+	bool initScene();
 
+	void LoadLevels();
+
+	bool process();
+
+	void Draw(int h);
+
+	void movePlayer(int p, MoveType m);
+	
 private:
-	std::vector<Level> nivells;	
+	cPlayer players[2];
+	Level nivells[2];
+
+	float T;
+	int currentLevel;
+
+	void addShot(int p);
+
+	cData data;
 };

@@ -49,9 +49,9 @@ void cBicho::GetWidthHeight(int *width,int *height)
 	*width = w;
 	*height = h;
 }
-bool cBicho::Collides(Level *l)
+bool cBicho::Collides(Level& l)
 {
-	bool p  = l->collides(x, y, 0, 0);
+	bool p  = l.collides(x, y, 0, 0);
 	return p;
 }
 
@@ -83,7 +83,7 @@ void cBicho::DrawRect(int tex_id,float xo,float yo,float xf,float yf)
 	glDisable(GL_TEXTURE_2D);
 }
 
-void cBicho::MoveUp(Level *l)
+void cBicho::MoveUp(Level& l)
 {
 	y += STEP_LENGTH;
 
@@ -102,7 +102,7 @@ void cBicho::MoveUp(Level *l)
 	}
 }
 
-void cBicho::MoveUpRight(Level *l)
+void cBicho::MoveUpRight(Level& l)
 {
 	y += STEP_LENGTH/2;
 	x += STEP_LENGTH/2;
@@ -122,7 +122,8 @@ void cBicho::MoveUpRight(Level *l)
 		}
 	}
 }
-void cBicho::MoveRight(Level *l)
+
+void cBicho::MoveRight(Level& l)
 {
 	x += STEP_LENGTH;
 
@@ -140,7 +141,8 @@ void cBicho::MoveRight(Level *l)
 		}
 	}
 }
-void cBicho::MoveDownRight(Level *l)
+
+void cBicho::MoveDownRight(Level& l)
 {
 	y -= STEP_LENGTH/2;
 	x += STEP_LENGTH/2;
@@ -160,7 +162,8 @@ void cBicho::MoveDownRight(Level *l)
 		}
 	}
 }
-void cBicho::MoveDown(Level *l)
+
+void cBicho::MoveDown(Level& l)
 {
 	y -= STEP_LENGTH;
 
@@ -178,7 +181,8 @@ void cBicho::MoveDown(Level *l)
 		}
 	}
 }
-void cBicho::MoveDownLeft(Level *l)
+
+void cBicho::MoveDownLeft(Level& l)
 {
 	y -= STEP_LENGTH/2;
 	x -= STEP_LENGTH/2;
@@ -198,7 +202,8 @@ void cBicho::MoveDownLeft(Level *l)
 		}
 	}
 }
-void cBicho::MoveLeft(Level *l)
+
+void cBicho::MoveLeft(Level& l)
 {
 	x -= STEP_LENGTH;
 
@@ -216,7 +221,8 @@ void cBicho::MoveLeft(Level *l)
 		}
 	}
 }
-void cBicho::MoveUpLeft(Level *l)
+
+void cBicho::MoveUpLeft(Level& l)
 {
 	y += STEP_LENGTH/2;
 	x -= STEP_LENGTH/2;
@@ -236,6 +242,7 @@ void cBicho::MoveUpLeft(Level *l)
 		}
 	}
 }
+
 void cBicho::Stop()
 {
 	switch(state)
@@ -250,50 +257,7 @@ void cBicho::Stop()
 		case STATE_WALKUPLEFT:		state = STATE_LOOKUPLEFT;		break;
 	}
 }
-/*void cBicho::Jump(int *map)
-{
-	if(!jumping)
-	{
-		if(CollidesMapFloor(map))
-		{
-			jumping = true;
-			jump_alfa = 0;
-			jump_y = y;
-		}
-	}
-}
-void cBicho::Logic(int *map)
-{
-	float alfa;
 
-	if(jumping)
-	{
-		jump_alfa += JUMP_STEP;
-		
-		if(jump_alfa == 180)
-		{
-			jumping = false;
-			y = jump_y;
-		}
-		else
-		{
-			alfa = ((float)jump_alfa) * 0.017453f;
-			y = jump_y + (int)( ((float)JUMP_HEIGHT) * sin(alfa) );
-		
-			if(jump_alfa > 90)
-			{
-				//Over floor?
-				jumping = !CollidesMapFloor(map);
-			}
-		}
-	}
-	else
-	{
-		//Over floor?
-		if(!CollidesMapFloor(map))
-			y -= (2*STEP_LENGTH);
-	}
-}*/
 void cBicho::NextFrame(int max)
 {
 	delay++;

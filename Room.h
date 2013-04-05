@@ -45,7 +45,7 @@ public:
 	void deleteDisplayLists(void);
 
 	void addEnemy(int x, int y);
-	void addBullet(int x, int y);
+	void addBullet(int x, int y, int d);
 
 	virtual void process(int x1, int y1, int x2, int y2); 
 };

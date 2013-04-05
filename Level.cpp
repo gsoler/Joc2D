@@ -37,7 +37,7 @@ void Level::addRoom(int heigth, int width, int bgTileSize, int fgTileSize, GLuin
 	level.push_back(room);
 
 	if (metrics.empty()) metrics.push_back(room->getHeight());
-	else metrics.push_back(room->getHeight() + metrics.back()+1);
+	else metrics.push_back(room->getHeight() + metrics.back() + 1);
 	//metrics.push_back(room->getHeight() + metrics.back() + 1);
 }
 
@@ -55,11 +55,27 @@ int Level::getRoom(int start, int h)
 	return i;
 }
 
-bool Level::collides(int x0, int y0, int x1, int y1) {
+bool Level::collides(int x0, int y0, int x1, int y1) 
+{
 	int i = getRoom(0, y0);
 	int offset = metrics[i] - level[i]->getHeight();
 
 	return level[i]->collides(x0, y0 - offset, x1, y1 - offset);
+}
+
+void Level::addBullet(int x, int y, int d) 
+{
+	int i = getRoom(0, y);
+	int offset = metrics[i] - level[i]->getHeight();
+
+	level[i]->addBullet(x, y - offset, d);
+
+}
+
+void Level::proccess(int x0, int y0, int x1, int y1)
+{
+	int i = getRoom(0, y0);
+	level[i]->process(x0, y0, x1, y1);
 }
 
 void Level::drawLevel(int bottom, int top)
@@ -67,7 +83,6 @@ void Level::drawLevel(int bottom, int top)
 	//check the constrain
 	if (bottom < top && bottom >= 0 && top <= metrics.back()) {
 		int i = getRoom(0, bottom);
-
 		int j = getRoom(i, top);
 
 		glPushMatrix();

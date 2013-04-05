@@ -12,7 +12,10 @@ public:
 	void SetWidthHeight(int width, int height);
 	void SetState(int state);
 	int GetState();
+	void getPosition(int* x, int* y);
+	void getDimensions(int* h, int* w);
 	void SetDirection(int Direction);
+	void move();
 
 private:
 	float x,y;

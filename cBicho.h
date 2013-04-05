@@ -37,8 +37,6 @@ class cBicho
 {
 public:
 
-	//typedef int Level;
-
 	cBicho(void);
 	cBicho(int x,int y,int w,int h);
 	~cBicho(void);
@@ -50,20 +48,19 @@ public:
 	void SetWidthHeight(int w,int h);
 	void GetWidthHeight(int *w,int *h);
 
-	bool Collides(Level *l);
+	bool Collides(Level& l);
 	void GetArea(cRect *rc);
 	void DrawRect(int tex_id,float xo,float yo,float xf,float yf);
 	
-	void MoveUp(Level *l);
-	void MoveUpRight(Level *l);
-	void MoveRight(Level *l);
-	void MoveDownRight(Level *l);
-	void MoveDown(Level *l);
-	void MoveDownLeft(Level *l);
-	void MoveLeft(Level *l);
-	void MoveUpLeft(Level *l);
+	void MoveUp(Level& l);
+	void MoveUpRight(Level& l);
+	void MoveRight(Level& l);
+	void MoveDownRight(Level& l);
+	void MoveDown(Level& l);
+	void MoveDownLeft(Level& l);
+	void MoveLeft(Level& l);
+	void MoveUpLeft(Level& l);
 	void Stop();
-	//void Logic(int *map);
 
 	int  GetState();
 	void SetState(int s);

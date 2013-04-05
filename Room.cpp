@@ -29,32 +29,46 @@ int Room::getHeight(void)
 
 bool Room::collides(int x0, int y0, int x1, int y1) 
 {
-	//if (x0 < 0 || x0 > width || y0 < 0 || y0 > height) return true; 
-	
 	int tx = x0/fgTileSize;
 	int ty = y0/fgTileSize;
-	bool d = (collisonMap[ty][tx] != 0);
-	return d;
+
+	if (ty >=  collisonMap.size()) return true;
+	return (collisonMap[ty][tx] != 0);
 }
 
 void Room::addEnemy(int x, int y) 
 {
-
 }
 
-void Room::addBullet(int x, int y)
+void Room::addBullet(int x, int y, int d)
 {
 	bullets.push_back(cShot(x, y));
+	bullets.back().SetDirection(d);
+	bullets.back().SetState(STATE_SHOTING);
+	bullets.back().SetWidthHeight(10, 10);
 }
 
 void Room::processBullet(int i) 
 {
-	bullets[i].
+	int x;
+	int y;
+	int w;
+	int h;
+	
+	if(bullets[i].GetState() == STATE_SHOT_END) return; 
+
+	bullets[i].getPosition(&x, &y);
+	bullets[i].getDimensions(&h,&w);
+	if (collides(x, y, x+w, y+h)) {
+		bullets[i].SetState(STATE_SHOT_END);
+		return;
+	}
+	
+	bullets[i].move();
 }
 
 void Room::processEnemy(int i)
 {
-
 }
 
 void Room::process(int x1, int y1, int x2, int y2) 
@@ -74,6 +88,9 @@ void Room::drawRoom()
 	glCallList(fgDisplayList);
 
 	glDisable(GL_TEXTURE_2D);
+
+	for (int i = 0; i < bullets.size(); ++i) bullets[i].Draw(bgTexId);
+
 }
 
 void Room::deleteDisplayLists()

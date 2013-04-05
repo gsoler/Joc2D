@@ -74,3 +74,15 @@ void cPlayer::Draw(int tex_id)
 
 	DrawRect(tex_id,xo,yo,xf,yf);
 }
+
+bool cPlayer::shoot() 
+{
+	if (coolDown == 0) {
+		coolDown = COOL_DOWN;
+		return true;
+	}
+	else {
+		--coolDown;
+		return false;
+	}
+}

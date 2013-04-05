@@ -20,11 +20,15 @@ public:
 	~Level(void);
 
 	void deleteLevel();
+
 	void addRoom(int heigth, int width, int bgTileSize, int fgTileSize, GLuint fgTexId, GLuint bgTexId, RoomType roomType);
+	void addBullet(int x, int y, int d);
 
 	int getHeight();
 
 	bool collides(int x, int y, int xt, int yt);
+
+	void proccess(int x0, int y0, int x1, int x2);
 
 	void drawLevel();
 	void drawLevel(int bottom, int top);

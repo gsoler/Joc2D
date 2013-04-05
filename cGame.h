@@ -1,12 +1,6 @@
 #pragma once
 
 #include "cScene.h"
-#include "cPlayer.h"
-#include "cData.h"
-#include "cBicho.h"
-#include "cShot.h"
-#include <vector>
-using namespace std;
 
 #define GAME_WIDTH	640+64
 #define GAME_HEIGHT 480
@@ -30,21 +24,10 @@ public:
 	void Render();
 
 private:
-	int PosicioMinima();
-
-	int level;
-	int nextShot1, nextShot2;
-	bool secondPlayer;
-	int PosPant;
-	int Direction;
 	bool repressed;
+
 	unsigned char keys[256];
 	unsigned char specialkeys[256];
+	
 	cScene Scene;
-	cPlayer Player;
-	cPlayer Player2;
-	vector<cShot> Shots;
-	vector<cShot> Shots2;
-	vector<cShot> auxShots;
-	cData Data;
 };
