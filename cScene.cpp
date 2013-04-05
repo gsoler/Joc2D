@@ -91,6 +91,7 @@ void cScene::LoadLevels()
 void cScene::movePlayer(int p, MoveType m) 
 {
 	if (p >= 2) return;
+	if (!players[p].isAlive()) return;
 
 	switch (m) {
 		case UP: players[p].MoveUp(nivells[currentLevel]);
@@ -144,12 +145,12 @@ bool cScene::process(AIEngine& AI)
 	int flag1 = nivells[currentLevel].process(x1, y1, x1+w1, y1+h1);
 	
 	if (flag0 == 2) players[0].kill();
-	if (flag1 == 2) players[0].kill();
+	if (flag1 == 2) players[1].kill();
 	
 	if (flag0 == 1 || flag1 == 1) {
 		if (currentLevel == 0) {
-			players[0].SetPosition(4,4);
-			players[1].SetPosition(4,5);
+			players[0].SetTile(4,1);
+			players[1].SetPosition(5,1);
 			T = 0.0;
 			currentLevel = 1;
 		}
@@ -166,7 +167,11 @@ void cScene::Draw(int h)
 
 	players[0].GetPosition(&x0, &y0);
 	players[1].GetPosition(&x1, &y1);
-	int y = min (y0, y1);
+	int y = 0;
+
+	if (players[0].isAlive() && players[1].isAlive()) y = min (y0, y1);
+	else if (players[0].isAlive()) y = y0;
+	else y = y1;
 
 	if (y > T + h/2 - 50) T += STEP_LENGTH;
 	else if (y < T + h/8 - 50) T -= STEP_LENGTH;
