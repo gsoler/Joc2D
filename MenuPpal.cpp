@@ -33,6 +33,10 @@ void MenuPpal::drawNormalString (char *s)
 
 void MenuPpal::mostraInstructions()
 {	
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
 	glLoadIdentity();
@@ -56,10 +60,16 @@ void MenuPpal::mostraInstructions()
 
 	glutSwapBuffers();
 	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
 }
 
 void MenuPpal::mostraCredits()
 {
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
 	glLoadIdentity();
@@ -77,10 +87,16 @@ void MenuPpal::mostraCredits()
 	
 	glutSwapBuffers();
 	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
 }
 
 void MenuPpal::pintaMenu()
 {
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
 	glLoadIdentity();
@@ -107,6 +123,8 @@ void MenuPpal::pintaMenu()
 		glRasterPos2f(-0.05f, -0.15f);
 		drawString("Surt");
 	glutSwapBuffers();
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
 	glPopMatrix();
 }
 
