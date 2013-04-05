@@ -34,7 +34,7 @@ int Room::collides(int x0, int y0, int x1, int y1)
 
 	int x, y;
 	int w, h;
-	/*
+	
 	for (int i = 0; i < bullets.size(); ++i) {
 		if (bullets[i].GetState() == STATE_SHOTING) {
 			bullets[i].getPosition(&x, &y);
@@ -44,7 +44,7 @@ int Room::collides(int x0, int y0, int x1, int y1)
 				return 2;
 			}
 		}
-	}*/
+	}
 
 	for (int i = 0; i < kamikazes.size(); ++i) {
 		kamikazes[i].GetPosition(&x, &y);

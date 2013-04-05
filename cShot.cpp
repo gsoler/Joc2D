@@ -6,8 +6,8 @@ cShot::cShot(int x, int y)
 {
 	vecDir.x = 3;
 	vecDir.y = 0;
-	this->x = x;
-	this->y = y;
+	this->x = x + 16;
+	this->y = y + 16;
 	frame = 0;
 }
 
@@ -92,7 +92,7 @@ void cShot::SetDirection(int dir)
 	switch (dir%8) {
 		case 0:
 			vecDir.x = 0;
-			vecDir.y = 3;
+			vecDir.y = 3; 
 			break;
 		case 1:
 			vecDir.x = 2.1;
@@ -123,5 +123,8 @@ void cShot::SetDirection(int dir)
 			vecDir.y = 2.1;
 			break;
 	}
+
+	x += vecDir.x * 10;
+	y += vecDir.y * 10;
 
 }

@@ -46,6 +46,8 @@ public:
 
 	int collides(int x, int y, int tx, int ty);
 
+	bool collidesMap(int x, int y);
+
 	virtual void createRoom(void) = 0;
 
 	virtual void drawRoom(GLuint texBullets, GLuint texEnemy1, GLuint texEnemy2);
