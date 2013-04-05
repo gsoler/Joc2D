@@ -32,11 +32,44 @@ int Room::collides(int x0, int y0, int x1, int y1)
 	int tx = x0/fgTileSize;
 	int ty = y0/fgTileSize;
 
-	for (int i = 0; i < kamikazes.size(); ++i); 
+	int x, y;
+	int w, h;
+	/*
+	for (int i = 0; i < bullets.size(); ++i) {
+		if (bullets[i].GetState() == STATE_SHOTING) {
+			bullets[i].getPosition(&x, &y);
+			bullets[i].getDimensions(&w, &h);
+
+			if (boxCollision(x0, y0, x1, y1, x, y, x+w, y+h)) {
+				return 2;
+			}
+		}
+	}*/
+
+	for (int i = 0; i < kamikazes.size(); ++i) {
+		kamikazes[i].GetPosition(&x, &y);
+		kamikazes[i].GetWidthHeight(&w, &h);
+		
+		if (boxCollision(x0, y0, x1, y1, x, y, x+w, y+h)) {
+			return 2;
+		}
+		
+	}
+
+	for (int i = 0; i < shooters.size(); ++i) {
+		kamikazes[i].GetPosition(&x, &y);
+		kamikazes[i].GetWidthHeight(&w, &h);
+		
+		if (boxCollision(x0, y0, x1, y1, x, y, x+w, y+h)) {
+			return 2;
+		}
+	}
 
 	if (ty >=  collisonMap.size()) return true;
 	return (collisonMap[ty][tx] != 0);
 }
+
+
 
 void Room::addEnemy(int x, int y, EnemyType t) 
 {

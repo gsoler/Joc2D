@@ -55,7 +55,7 @@ int Level::getRoom(int start, int h)
 	return i;
 }
 
-bool Level::collides(int x0, int y0, int x1, int y1) 
+int Level::collides(int x0, int y0, int x1, int y1) 
 {
 	int i = getRoom(0, y0);
 	int offset = metrics[i] - level[i]->getHeight();

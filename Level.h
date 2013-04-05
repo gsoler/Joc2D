@@ -27,7 +27,7 @@ public:
 
 	int getHeight();
 
-	bool collides(int x, int y, int xt, int yt);
+	int collides(int x, int y, int xt, int yt);
 
 	int proccess(int x0, int y0, int x1, int x2);
 
