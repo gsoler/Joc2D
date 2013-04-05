@@ -94,10 +94,10 @@ void Level::addEnemy(int x, int y, Room::EnemyType t) {
 
 int Level::process(int x0, int y0, int x1, int y1)
 {
+	if (y0 > metrics.back() - 64) return 1;
 	int i = getRoom(0, y0);
-	int offset = metrics[i] - level[i]->getHeight();
 
-	if (i < 0) return 1;
+	int offset = metrics[i] - level[i]->getHeight();
 	return level[i]->process(x0, y0 - offset, x1, y1 - offset);
 }
 

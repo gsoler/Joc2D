@@ -58,6 +58,16 @@ void cBicho::GetArea(cRect *rc)
 	rc->top    = y+h;
 }
 
+bool cBicho::isAlive()
+{
+	return alive;
+}
+
+void cBicho::kill()
+{
+	alive = false;
+}
+
 void cBicho::DrawRect(int tex_id,float xo,float yo,float xf,float yf)
 {
 	int screen_x,screen_y;

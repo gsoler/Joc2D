@@ -64,7 +64,7 @@ bool cGame::Loop()
 		do { t2 = glutGet(GLUT_ELAPSED_TIME);
 		} while (t2 - t1 < 10);
 
-		return res;
+		if (!res) menuact;
 	}
 	else if(menu.getOption() == 2){
 		menu.mostraInstructions();

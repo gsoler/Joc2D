@@ -81,10 +81,10 @@ void cScene::LoadLevels()
 	nivells[1].addRoom(TILE_SIZE*11,TILE_SIZE*11,16,TILE_SIZE, data.GetID(IMG_BLOCKS3), data.GetID(IMG_BLOCKS2), Level::FIELD);
 
 	for (int i = TILE_SIZE; i < TILE_SIZE*(11-1); i+=TILE_SIZE/2) 
-		nivells[0].addEnemy(i, TILE_SIZE*11*3-200, Room::SHOOTER);
+		nivells[1].addEnemy(i, TILE_SIZE*11*3-200, Room::SHOOTER);
 
 	for (int i = TILE_SIZE; i < TILE_SIZE*(11-1); i+=TILE_SIZE/2) 
-		nivells[0].addEnemy(i, TILE_SIZE*11*3-300, Room::KAMIKAZE);
+		nivells[1].addEnemy(i, TILE_SIZE*11*3-300, Room::KAMIKAZE);
 
 }
 
@@ -143,7 +143,19 @@ bool cScene::process(AIEngine& AI)
 	int flag0 = nivells[currentLevel].process(x0, y0, x0+w0, y0+h0);
 	int flag1 = nivells[currentLevel].process(x1, y1, x1+w1, y1+h1);
 	
-	if (flag0 == 1 || flag1 == 1) currentLevel = 1;
+	if (flag0 == 2) players[0].kill();
+	if (flag1 == 2) players[0].kill();
+	
+	if (flag0 == 1 || flag1 == 1) {
+		if (currentLevel == 0) {
+			players[0].SetPosition(4,4);
+			players[1].SetPosition(4,5);
+			T = 0.0;
+			currentLevel = 1;
+		}
+		else return false;
+	}
+
 	else if (flag0 == 2 && flag1 == 2) return false;
 	return true;
 }
@@ -162,8 +174,7 @@ void cScene::Draw(int h)
 	glTranslatef(0.0f, -T*1.0f, 0.0f);
 
 	nivells[currentLevel].drawLevel(data.GetID(IMG_SHOT), data.GetID(IMG_ENEMY1), data.GetID(IMG_ENEMY2));
-	
-	players[0].Draw(data.GetID(IMG_PLAYER));
-	players[1].Draw(data.GetID(IMG_PLAYER2));
+	if (players[0].isAlive()) players[0].Draw(data.GetID(IMG_PLAYER));
+	if (players[1].isAlive())players[1].Draw(data.GetID(IMG_PLAYER2));
 }
 

@@ -33,7 +33,6 @@ int Room::collides(int x0, int y0, int x1, int y1)
 	int x, y;
 	int w, h;
 	
-
 	for (int i = 0; i < bullets.size(); ++i) {
 		if (bullets[i].GetState() == STATE_SHOTING) {
 			bullets[i].getPosition(&x, &y);
@@ -46,21 +45,23 @@ int Room::collides(int x0, int y0, int x1, int y1)
 	}
 
 	for (int i = 0; i < kamikazes.size(); ++i) {
-		kamikazes[i].GetPosition(&x, &y);
-		kamikazes[i].GetWidthHeight(&w, &h);
+		if (kamikazes[i].isAlive()) {
+			kamikazes[i].GetPosition(&x, &y);
+			kamikazes[i].GetWidthHeight(&w, &h);
 		
-		if (boxCollision(x0, y0, x1, y1, x, y, x+w, y+h)) {
-			return 2;
+			if (boxCollision(x0, y0, x1, y1, x, y, x+w, y+h)) {
+				return 2;
+			}
 		}
-		
 	}
 
 	for (int i = 0; i < shooters.size(); ++i) {
-		shooters[i].GetPosition(&x, &y);
-		shooters[i].GetWidthHeight(&w, &h);
-		
-		if (boxCollision(x0, y0, x1, y1, x, y, x+w, y+h)) {
-			return 2;
+		if (shooters[i].isAlive()) {
+			shooters[i].GetPosition(&x, &y);
+			shooters[i].GetWidthHeight(&w, &h);
+			if (boxCollision(x0, y0, x1, y1, x, y, x+w, y+h)) {
+				return 2;
+			}
 		}
 	}
 }
@@ -99,6 +100,13 @@ void Room::addBullet(int x, int y, int d)
 	bullets.back().SetWidthHeight(10, 10);
 }
 
+
+bool Room::boxCollision(int x00, int y00, int x01, int y01, int x10, int y10, int x11, int y11)
+{
+	if (x11 < x00 || x10 > x01 || y11 < y00 || y10 > y01) return false;
+	return true;
+}
+
 void Room::processBullet(int i) 
 {
 	int x, y;
@@ -114,11 +122,6 @@ void Room::processBullet(int i)
 	}
 	
 	bullets[i].move();
-}
-bool Room::boxCollision(int x00, int y00, int x01, int y01, int x10, int y10, int x11, int y11)
-{
-	if (x11 < x00 || x10 > x01 || y11 < y00 || y10 > y01) return false;
-	return true;
 }
 
 bool Room::processEnemy(Enemy& e) 
@@ -146,12 +149,14 @@ bool Room::processEnemy(Enemy& e)
 
 void Room::processShooter(int i, int x1, int y1, int x2, int y2)
 {
-	processEnemy(shooters[i]);
+	if (!shooters[i].isAlive()) return;
+	if (!processEnemy(shooters[i])) shooters[i].kill();
 }
 
 void Room::processKamikaze(int i, int x1, int y1, int x2, int y2)
 {
-	processEnemy(kamikazes[i]);
+	if (!kamikazes[i].isAlive()) return;
+	if (!processEnemy(kamikazes[i])) kamikazes[i].kill();
 }
 
 int Room::process(int x0, int y0, int x1, int y1) 
@@ -174,10 +179,15 @@ void Room::drawRoom(GLuint texBullets, GLuint texShooter, GLuint texKamikaze)
 
 	glDisable(GL_TEXTURE_2D);
 
-	for (int i = 0; i < shooters.size(); ++i) shooters[i].Draw(texShooter);
-	for (int i = 0; i < kamikazes.size(); ++i) kamikazes[i].Draw(texKamikaze);
-	for (int i = 0; i < bullets.size(); ++i) bullets[i].Draw(texBullets);
-
+	for (int i = 0; i < shooters.size(); ++i) {
+		if (shooters[i].isAlive()) shooters[i].Draw(texShooter);
+	}
+	for (int i = 0; i < kamikazes.size(); ++i) {
+		if (kamikazes[i].isAlive()) kamikazes[i].Draw(texKamikaze);
+	}
+	for (int i = 0; i < bullets.size(); ++i) {
+		if (bullets[i].GetState() == STATE_SHOTING) bullets[i].Draw(texBullets);
+	}
 }
 
 void Room::deleteDisplayLists()

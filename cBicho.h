@@ -49,7 +49,9 @@ public:
 
 	void GetArea(cRect *rc);
 	void DrawRect(int tex_id,float xo,float yo,float xf,float yf);
-	
+	bool isAlive();
+	void kill();
+
 	void MoveUp();
 	void MoveUpRight();
 	void MoveRight();
