@@ -2,6 +2,7 @@
 
 #include "cScene.h"
 #include "AIEngine.h"
+#include "MenuPpal.h"
 
 #define GAME_WIDTH	640+64
 #define GAME_HEIGHT 480
@@ -23,13 +24,16 @@ public:
 	bool Process();
 	//Output
 	void Render();
+	void setMenu(bool estat);
 
 private:
+	bool menuact;
 	bool repressed;
 
 	unsigned char keys[256];
 	unsigned char specialkeys[256];
 	
+	MenuPpal menu;
 	cScene Scene;
 	AIEngine AI;
 };

@@ -44,7 +44,7 @@ void main(int argc, char** argv)
 	glutInit(&argc, argv);
 
 	//RGBA with double buffer
-	glutInitDisplayMode(GLUT_RGBA | GLUT_ALPHA | GLUT_DOUBLE);
+	glutInitDisplayMode(GLUT_RGB | GLUT_ALPHA | GLUT_DOUBLE);
 
 	//Create centered window
 	res_x = glutGet(GLUT_SCREEN_WIDTH);
@@ -54,7 +54,7 @@ void main(int argc, char** argv)
 	
 	glutInitWindowPosition(pos_x,pos_y);
 	glutInitWindowSize(GAME_WIDTH,GAME_HEIGHT);
-	glutCreateWindow("Un joc raro que hem fet en 2 dies, bueno... potser una mica mes!");
+	glutCreateWindow("asdf");
 
 	/*glutGameModeString("1280x1024:32");
 	glutEnterGameMode();*/

@@ -12,16 +12,22 @@ cGame::~cGame(void)
 {
 }
 
+void cGame::setMenu(bool estat)
+{
+	menuact = estat;
+}
+
 bool cGame::Init()
 {
 	srand(time(0));
 	repressed = true;
+	menuact = true;
 
 	//Graphics initialization
 	glClearColor(0.0f,0.0f,0.0f,0.0f);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(0,GAME_WIDTH,0,GAME_HEIGHT,0,1);
+	glOrtho(0,GAME_WIDTH,0,GAME_HEIGHT,-1,1);
 	glMatrixMode(GL_MODELVIEW);
 	
 	glAlphaFunc(GL_GREATER, 0.05f);
@@ -32,19 +38,41 @@ bool cGame::Init()
 
 bool cGame::Loop()
 {
-	bool res=true;
+	if(menuact){
+		menu.pintaMenu();
 
-	int t1, t2;
+	}
+	else if(menu.getOption() == 1){
+		//Graphics initialization
+		glClearColor(0.0f,0.0f,0.0f,0.0f);
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		glOrtho(0,GAME_WIDTH,0,GAME_HEIGHT,-1,1);
+		glMatrixMode(GL_MODELVIEW);
+	
+		glAlphaFunc(GL_GREATER, 0.05f);
+		glEnable(GL_ALPHA_TEST);
+		bool res=true;
 
-	t1 = glutGet(GLUT_ELAPSED_TIME);
+		int t1, t2;
 
-	res = Process();
-	if(res) Render();
+		t1 = glutGet(GLUT_ELAPSED_TIME);
 
-	do { t2 = glutGet(GLUT_ELAPSED_TIME);
-	} while (t2 - t1 < 10);
+		res = Process();
+		if(res) Render();
 
-	return res;
+		do { t2 = glutGet(GLUT_ELAPSED_TIME);
+		} while (t2 - t1 < 10);
+
+		return res;
+	}
+	else if(menu.getOption() == 2){
+		menu.mostraInstructions();
+	}
+	else if(menu.getOption() == 3){
+		menu.mostraCredits();
+	}
+	else exit(0);
 }
 
 void cGame::Finalize()
@@ -54,24 +82,43 @@ void cGame::Finalize()
 //Input
 void cGame::ReadKeyboard(unsigned char key, int x, int y, bool press, bool special)
 {
-	if(special) {
-		specialkeys[key] = press;
-		if (!press) {
-			specialkeys[GLUT_KEY_UP] *= 3;
-			specialkeys[GLUT_KEY_DOWN] *= 3;
-			specialkeys[GLUT_KEY_LEFT] *= 3;
-			specialkeys[GLUT_KEY_RIGHT] *= 3;
+	
+	if(menuact){
+		if(key == GLUT_KEY_UP && press) {
+			if(menu.getOption() > 1)
+				menu.changeOption(menu.getOption() - 1);
 		}
+		else if(key == GLUT_KEY_DOWN && press){
+			if(menu.getOption() < 4)
+				menu.changeOption(menu.getOption() + 1);
+		}
+		else if(key == 13)
+			menuact = false;
 	}
 	else {
-		keys[key] = press;
-		if(key == 'p') repressed = true;
-		if (!press) {
-			keys[GLUT_KEY_UP] *= 3;
-			keys[GLUT_KEY_DOWN] *= 3;
-			keys[GLUT_KEY_LEFT] *= 3;
-			keys[GLUT_KEY_RIGHT] *= 3;
+		if(special) {
+			specialkeys[key] = press;
+			if (!press) {
+				specialkeys[GLUT_KEY_UP] *= 3;
+				specialkeys[GLUT_KEY_DOWN] *= 3;
+				specialkeys[GLUT_KEY_LEFT] *= 3;
+				specialkeys[GLUT_KEY_RIGHT] *= 3;
+			}
 		}
+		else {
+			keys[key] = press;
+			if(key == 'p') repressed = true;
+			if (!press) {
+				keys[GLUT_KEY_UP] *= 3;
+				keys[GLUT_KEY_DOWN] *= 3;
+				keys[GLUT_KEY_LEFT] *= 3;
+				keys[GLUT_KEY_RIGHT] *= 3;
+			}
+		}
+	}
+	if(key == 27 && !menuact){
+		menuact = true;
+		keys[key] = false;
 	}
 }
 
@@ -97,8 +144,8 @@ bool cGame::Process()
 			secondPlayer = true;
 		}
 		repressed = false;
-	}
-	*/
+	}*/
+	
 
 	if(specialkeys[GLUT_KEY_UP] && specialkeys[GLUT_KEY_LEFT]) {
 		Scene.movePlayer(0, cScene::UPL);
