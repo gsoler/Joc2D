@@ -102,6 +102,7 @@
     <ClCompile Include="MovingMazeRoom.cpp" />
     <ClCompile Include="QuickUnionSet.cpp" />
     <ClCompile Include="Room.cpp" />
+    <ClCompile Include="RoomEntity.cpp" />
     <ClCompile Include="Surface.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -122,6 +123,7 @@
     <ClInclude Include="MovingMazeRoom.h" />
     <ClInclude Include="QuickUnionSet.h" />
     <ClInclude Include="Room.h" />
+    <ClInclude Include="RoomEntity.h" />
     <ClInclude Include="Surface.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

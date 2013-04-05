@@ -54,7 +54,7 @@ void main(int argc, char** argv)
 	
 	glutInitWindowPosition(pos_x,pos_y);
 	glutInitWindowSize(GAME_WIDTH,GAME_HEIGHT);
-	glutCreateWindow("Bubble returns!");
+	glutCreateWindow("Un joc raro que hem fet en 2 dies, bueno... potser una mica mes!");
 
 	/*glutGameModeString("1280x1024:32");
 	glutEnterGameMode();*/
