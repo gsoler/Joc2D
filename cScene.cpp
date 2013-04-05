@@ -79,6 +79,13 @@ void cScene::LoadLevels()
 	nivells[1].addRoom(TILE_SIZE*11,TILE_SIZE*11,16,TILE_SIZE, data.GetID(IMG_BLOCKS3), data.GetID(IMG_BLOCKS2), Level::MAZE);
 	nivells[1].addRoom(TILE_SIZE*11,TILE_SIZE*11,16,TILE_SIZE, data.GetID(IMG_BLOCKS3), data.GetID(IMG_BLOCKS2), Level::MMAZE);
 	nivells[1].addRoom(TILE_SIZE*11,TILE_SIZE*11,16,TILE_SIZE, data.GetID(IMG_BLOCKS3), data.GetID(IMG_BLOCKS2), Level::FIELD);
+
+	for (int i = TILE_SIZE; i < TILE_SIZE*(11-1); i+=TILE_SIZE/2) 
+		nivells[0].addEnemy(i, TILE_SIZE*11*3-200, Room::SHOOTER);
+
+	for (int i = TILE_SIZE; i < TILE_SIZE*(11-1); i+=TILE_SIZE/2) 
+		nivells[0].addEnemy(i, TILE_SIZE*11*3-300, Room::KAMIKAZE);
+
 }
 
 void cScene::movePlayer(int p, MoveType m) 
