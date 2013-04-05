@@ -90,6 +90,7 @@ bool Room::processEnemy(Enemy& e)
 	int w, h;
 	e.GetPosition(&x, &y);
 	e.GetWidthHeight(&w,&h);
+
 	for (int i = 0; i < bullets.size(); ++i) {
 		if (bullets[i].GetState() == STATE_SHOTING)  {
 			int bx, by;
@@ -102,6 +103,7 @@ bool Room::processEnemy(Enemy& e)
 			}
 		}
 	}
+
 	return true;
 }
 

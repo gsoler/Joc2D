@@ -11,6 +11,13 @@ Enemy::~Enemy(void)
 {
 }
 
+void Enemy::parseAI(const std::vector<Vec2>& path)
+{
+	for (int i = 0; i < path.size(); ++i) {
+		
+	}
+}
+
 void Enemy::Draw(int tex_id){
 	float xo,yo,xf,yf;
 
