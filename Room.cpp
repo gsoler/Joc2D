@@ -29,12 +29,11 @@ int Room::getHeight(void)
 
 int Room::collides(int x0, int y0, int x1, int y1) 
 {
-	int tx = x0/fgTileSize;
-	int ty = y0/fgTileSize;
 
 	int x, y;
 	int w, h;
 	
+
 	for (int i = 0; i < bullets.size(); ++i) {
 		if (bullets[i].GetState() == STATE_SHOTING) {
 			bullets[i].getPosition(&x, &y);
@@ -57,18 +56,23 @@ int Room::collides(int x0, int y0, int x1, int y1)
 	}
 
 	for (int i = 0; i < shooters.size(); ++i) {
-		kamikazes[i].GetPosition(&x, &y);
-		kamikazes[i].GetWidthHeight(&w, &h);
+		shooters[i].GetPosition(&x, &y);
+		shooters[i].GetWidthHeight(&w, &h);
 		
 		if (boxCollision(x0, y0, x1, y1, x, y, x+w, y+h)) {
 			return 2;
 		}
 	}
+}
+
+bool Room::collidesMap(int x, int y)
+{
+	int tx = x/fgTileSize;
+	int ty = y/fgTileSize;
 
 	if (ty >=  collisonMap.size()) return true;
 	return (collisonMap[ty][tx] != 0);
 }
-
 
 
 void Room::addEnemy(int x, int y, EnemyType t) 
@@ -97,16 +101,14 @@ void Room::addBullet(int x, int y, int d)
 
 void Room::processBullet(int i) 
 {
-	int x;
-	int y;
-	int w;
-	int h;
+	int x, y;
+	int w, h;
 	
 	if(bullets[i].GetState() == STATE_SHOT_END) return; 
 
 	bullets[i].getPosition(&x, &y);
 	bullets[i].getDimensions(&h,&w);
-	if (collides(x, y, x+w, y+h)) {
+	if (collidesMap(x, y)) {
 		bullets[i].SetState(STATE_SHOT_END);
 		return;
 	}
@@ -152,11 +154,12 @@ void Room::processKamikaze(int i, int x1, int y1, int x2, int y2)
 	processEnemy(kamikazes[i]);
 }
 
-void Room::process(int x1, int y1, int x2, int y2) 
+int Room::process(int x0, int y0, int x1, int y1) 
 {
 	for (int i = 0; i < bullets.size(); ++i) processBullet(i);
-	for (int i = 0; i < shooters.size(); ++i) processShooter(i, x1, y1, x2, y2);
-	for (int i = 0; i < kamikazes.size(); ++i) processKamikaze(i, x1, y1, x2, y2);
+	for (int i = 0; i < shooters.size(); ++i) processShooter(i, x1, y1, x0, y0);
+	for (int i = 0; i < kamikazes.size(); ++i) processKamikaze(i, x1, y1, x0, y0);
+	return collides(x0, y0, x1, y1);
 }
 
 void Room::drawRoom(GLuint texBullets, GLuint texShooter, GLuint texKamikaze) 

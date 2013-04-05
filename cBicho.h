@@ -73,5 +73,7 @@ protected:
 	int w,h;
 	int state;
 
+	int alive;
+
 	int seq,delay;
 };

@@ -75,9 +75,9 @@ void cPlayer::Draw(int tex_id)
 	DrawRect(tex_id,xo,yo,xf,yf);
 }
 
-bool cPlayer::Collides(Level& l)
+bool cPlayer::Collides(Level& l, int offsetx, int offsety)
 {
-	return l.collides(x, y, 0, 0);
+	return l.collidesMap(x+offsetx, y+offsety);
 }
 
 bool cPlayer::shoot() 
@@ -96,7 +96,7 @@ void cPlayer::MoveUp(Level& l)
 {
 	y += STEP_LENGTH;
 
-	if(Collides(l)) {
+	if(Collides(l, 0, h)) {
 		y -= STEP_LENGTH;
 		state = STATE_LOOKUP;
 	}
@@ -112,7 +112,7 @@ void cPlayer::MoveUpRight(Level& l)
 	y += STEP_LENGTH/2;
 	x += STEP_LENGTH/2;
 
-	if(Collides(l)) {
+	if(Collides(l, w, h)) {
 		y -= STEP_LENGTH/2;
 		x -= STEP_LENGTH/2;
 
@@ -130,7 +130,7 @@ void cPlayer::MoveRight(Level& l)
 {
 	x += STEP_LENGTH;
 
-	if (Collides(l)) {
+	if (Collides(l, w, 0)) {
 		x -= STEP_LENGTH;
 		
 		state = STATE_LOOKRIGHT;
@@ -147,7 +147,7 @@ void cPlayer::MoveDownRight(Level& l)
 	y -= STEP_LENGTH/2;
 	x += STEP_LENGTH/2;
 
-	if(Collides(l)) {
+	if(Collides(l, w, 0)) {
 		y += STEP_LENGTH/2;
 		x -= STEP_LENGTH/2;
 		
@@ -165,7 +165,7 @@ void cPlayer::MoveDown(Level& l)
 {
 	y -= STEP_LENGTH;
 
-	if(Collides(l)) {
+	if(Collides(l,0,0)) {
 		y += STEP_LENGTH;
 
 		state = STATE_LOOKDOWN;
@@ -182,7 +182,7 @@ void cPlayer::MoveDownLeft(Level& l)
 	y -= STEP_LENGTH/2;
 	x -= STEP_LENGTH/2;
 
-	if(Collides(l)) {
+	if(Collides(l, 0, 0)) {
 		y += STEP_LENGTH/2;
 		x += STEP_LENGTH/2;
 
@@ -200,7 +200,7 @@ void cPlayer::MoveLeft(Level& l)
 {
 	x -= STEP_LENGTH;
 
-	if(Collides(l)) {
+	if(Collides(l, 0, 0)) {
 		x += STEP_LENGTH;
 
 		state = STATE_LOOKLEFT;
@@ -217,7 +217,7 @@ void cPlayer::MoveUpLeft(Level& l)
 	y += STEP_LENGTH/2;
 	x -= STEP_LENGTH/2;
 
-	if(Collides(l)) {
+	if(Collides(l, 0, h)) {
 		y -= STEP_LENGTH/2;
 		x += STEP_LENGTH/2;
 

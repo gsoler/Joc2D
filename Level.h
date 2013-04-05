@@ -28,8 +28,8 @@ public:
 	int getHeight();
 
 	int collides(int x, int y, int xt, int yt);
-
-	int proccess(int x0, int y0, int x1, int x2);
+	bool collidesMap(int x, int y);
+	int process(int x0, int y0, int x1, int y1);
 
 	void drawLevel(GLuint texBullets, GLuint texShooter, GLuint texKamikaze);
 	//void drawLevel(int bottom, int top);

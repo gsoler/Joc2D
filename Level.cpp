@@ -50,7 +50,9 @@ int Level::getHeight()
 int Level::getRoom(int start, int h) 
 {
 	int i = start;
-	while (metrics[i] <= h) ++i;
+	while (i < metrics.size() && metrics[i] <= h) ++i;
+
+	if (i >= metrics.size()) return -1;
 
 	return i;
 }
@@ -58,10 +60,21 @@ int Level::getRoom(int start, int h)
 int Level::collides(int x0, int y0, int x1, int y1) 
 {
 	int i = getRoom(0, y0);
-	int offset = metrics[i] - level[i]->getHeight();
+	if (i < 0) return 1;
 
+	int offset = metrics[i] - level[i]->getHeight();
 	return level[i]->collides(x0, y0 - offset, x1, y1 - offset);
 }
+
+bool Level::collidesMap(int x, int y) 
+{
+	int i = getRoom(0, y);
+	if (i < 0) return false;
+
+	int offset = metrics[i] - level[i]->getHeight();
+	return level[i]->collidesMap(x, y - offset);
+}
+
 
 void Level::addBullet(int x, int y, int d) 
 {
@@ -79,14 +92,13 @@ void Level::addEnemy(int x, int y, Room::EnemyType t) {
 	level[i]->addEnemy(x, y - offset, t);
 }
 
-int Level::proccess(int x0, int y0, int x1, int y1)
+int Level::process(int x0, int y0, int x1, int y1)
 {
 	int i = getRoom(0, y0);
 	int offset = metrics[i] - level[i]->getHeight();
 
-	level[i]->process(x0, y0 - offset, x1, y1 - offset);
-
-	return 0;
+	if (i < 0) return 1;
+	return level[i]->process(x0, y0 - offset, x1, y1 - offset);
 }
 
 /*

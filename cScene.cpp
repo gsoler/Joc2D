@@ -22,10 +22,15 @@ bool cScene::initScene()
 
 	res = data.LoadImage(IMG_BLOCKS,"textures.png",GL_RGBA);
 	if(!res) return false;
-	
+	res = data.LoadImage(IMG_BLOCKS2,"textures23.png",GL_RGBA);
+	if(!res) return false;
+	res = data.LoadImage(IMG_BLOCKS3,"wall.png",GL_RGBA);
+	if(!res) return false;
+
 	//Player initialization
 	res = data.LoadImage(IMG_PLAYER,"player2.png",GL_RGBA);
 	if(!res) return false;
+
 	players[0].SetWidthHeight(32,32);
 	players[0].SetTile(4,1);
 	players[0].SetState(STATE_LOOKRIGHT);
@@ -54,22 +59,26 @@ bool cScene::initScene()
 void cScene::LoadLevels()
 {
 	
-	nivells[0].addRoom(TILE_SIZE*11,TILE_SIZE*11,32,TILE_SIZE, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::FIELD);
-	nivells[0].addRoom(TILE_SIZE*11,TILE_SIZE*11,32,TILE_SIZE, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::MAZE);
-	nivells[0].addRoom(TILE_SIZE*11,TILE_SIZE*11,32,TILE_SIZE, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::FIELD);
-	nivells[0].addRoom(TILE_SIZE*11,TILE_SIZE*11,32,TILE_SIZE, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::MAZE);
-	nivells[0].addRoom(TILE_SIZE*11,TILE_SIZE*11,32,TILE_SIZE, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::FIELD);
+	nivells[0].addRoom(TILE_SIZE*11,TILE_SIZE*11,16,TILE_SIZE, data.GetID(IMG_BLOCKS3), data.GetID(IMG_BLOCKS), Level::FIELD);
+	nivells[0].addRoom(TILE_SIZE*11,TILE_SIZE*11,16,TILE_SIZE, data.GetID(IMG_BLOCKS3), data.GetID(IMG_BLOCKS), Level::MAZE);
+	nivells[0].addRoom(TILE_SIZE*11,TILE_SIZE*11,16,TILE_SIZE, data.GetID(IMG_BLOCKS3), data.GetID(IMG_BLOCKS), Level::FIELD);
+	nivells[0].addRoom(TILE_SIZE*11,TILE_SIZE*11,16,TILE_SIZE, data.GetID(IMG_BLOCKS3), data.GetID(IMG_BLOCKS), Level::MAZE);
+	nivells[0].addRoom(TILE_SIZE*11,TILE_SIZE*11,16,TILE_SIZE, data.GetID(IMG_BLOCKS3), data.GetID(IMG_BLOCKS), Level::FIELD);
 
-	nivells[0].addEnemy(300, 300, Room::KAMIKAZE);
-	nivells[0].addEnemy(300, 340, Room::SHOOTER);
+	for (int i = TILE_SIZE; i < TILE_SIZE*(11-2)/3; i+=TILE_SIZE/2) 
+		nivells[0].addEnemy(i, TILE_SIZE*11*3-300, Room::SHOOTER);
+	for (int i = TILE_SIZE*(11-2)/3 + 200; i < TILE_SIZE*11-100; i+=TILE_SIZE/2) 
+		nivells[0].addEnemy(i,TILE_SIZE*11*3-300, Room::SHOOTER);
+	for (int i = TILE_SIZE; i < TILE_SIZE*(11-1); i+=TILE_SIZE/2) 
+		nivells[0].addEnemy(i, TILE_SIZE*11*5-200, Room::KAMIKAZE);
 
-	nivells[1].addRoom(TILE_SIZE*11,TILE_SIZE*11,32,TILE_SIZE, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::FIELD);
-	nivells[1].addRoom(TILE_SIZE*11,TILE_SIZE*11,32,TILE_SIZE, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::FIELD);
-	nivells[1].addRoom(TILE_SIZE*11,TILE_SIZE*11,32,TILE_SIZE, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::FIELD);
-	nivells[1].addRoom(TILE_SIZE*11,TILE_SIZE*11,32,TILE_SIZE, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::MAZE);
-	nivells[1].addRoom(TILE_SIZE*11,TILE_SIZE*11,32,TILE_SIZE, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::MAZE);
-	nivells[1].addRoom(TILE_SIZE*11,TILE_SIZE*11,32,TILE_SIZE, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::MAZE);
-	nivells[1].addRoom(TILE_SIZE*11,TILE_SIZE*11,32,TILE_SIZE, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::FIELD);
+	nivells[1].addRoom(TILE_SIZE*11,TILE_SIZE*11,16,TILE_SIZE, data.GetID(IMG_BLOCKS3), data.GetID(IMG_BLOCKS2), Level::FIELD);
+	nivells[1].addRoom(TILE_SIZE*11,TILE_SIZE*11,16,TILE_SIZE, data.GetID(IMG_BLOCKS3), data.GetID(IMG_BLOCKS2), Level::FIELD);
+	nivells[1].addRoom(TILE_SIZE*11,TILE_SIZE*11,16,TILE_SIZE, data.GetID(IMG_BLOCKS3), data.GetID(IMG_BLOCKS2), Level::FIELD);
+	nivells[1].addRoom(TILE_SIZE*11,TILE_SIZE*11,16,TILE_SIZE, data.GetID(IMG_BLOCKS3), data.GetID(IMG_BLOCKS2), Level::MAZE);
+	nivells[1].addRoom(TILE_SIZE*11,TILE_SIZE*11,16,TILE_SIZE, data.GetID(IMG_BLOCKS3), data.GetID(IMG_BLOCKS2), Level::MAZE);
+	nivells[1].addRoom(TILE_SIZE*11,TILE_SIZE*11,16,TILE_SIZE, data.GetID(IMG_BLOCKS3), data.GetID(IMG_BLOCKS2), Level::MMAZE);
+	nivells[1].addRoom(TILE_SIZE*11,TILE_SIZE*11,16,TILE_SIZE, data.GetID(IMG_BLOCKS3), data.GetID(IMG_BLOCKS2), Level::FIELD);
 }
 
 void cScene::movePlayer(int p, MoveType m) 
@@ -115,27 +124,26 @@ void cScene::addShot(int p)
 
 bool cScene::process(AIEngine& AI)
 {
-	int x0; 
-	int y0;
-	int x1;
-	int y1;
+	int x0, y0, x1, y1;
+	int w0, h0, w1, h1;
 
 	players[0].GetPosition(&x0, &y0);
+	players[0].GetWidthHeight(&w0, &h0);
+
 	players[1].GetPosition(&x1, &y1);
+	players[1].GetWidthHeight(&w1, &h1);
+
+	int flag0 = nivells[currentLevel].process(x0, y0, x0+w0, y0+h0);
+	int flag1 = nivells[currentLevel].process(x1, y1, x1+w1, y1+h1);
 	
-	int flag = nivells[currentLevel].proccess(x0, y0, x1, y1);
-	
-	if (flag == 1) currentLevel = 1;
-	else if (flag == 2) return false;
+	if (flag0 == 1 || flag1 == 1) currentLevel = 1;
+	else if (flag0 == 2 && flag1 == 2) return false;
 	return true;
 }
 
 void cScene::Draw(int h)
 {
-	int x0; 
-	int y0;
-	int x1;
-	int y1;
+	int x0, y0, x1, y1;
 
 	players[0].GetPosition(&x0, &y0);
 	players[1].GetPosition(&x1, &y1);

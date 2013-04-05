@@ -32,15 +32,15 @@ void MazeRoom::createBackground(void)
 				
 				double z = s.getZ(j, i); 
 
-				if (z <= -0.5) {
+				if (z <= 0) {
 					coordx_tile = 0.0f;
 					coordy_tile = 0.0f;
 				}
-				else if (z <= 0.0) {
+				else if (z <= 0.1) {
 					coordx_tile = 0.5f;
 					coordy_tile = 0.0f;
 				}
-				else if (z <= 0.5) {
+				else if (z <= 0.2) {
 					coordx_tile = 0.0f;
 					coordy_tile = 0.5f;
 				}
@@ -105,13 +105,13 @@ void MazeRoom::createForeground(void)
 					float px = j*fgTileSize;
 					float py = i*fgTileSize;
 
-					glTexCoord2f(coordx_tile,coordy_tile+0.5f);      
+					glTexCoord2f(coordx_tile,coordy_tile+1.0f);      
 					glVertex2i(px,py);
 				
-					glTexCoord2f(coordx_tile+0.5f,coordy_tile+0.5f); 
+					glTexCoord2f(coordx_tile+1.0f,coordy_tile+1.0f); 
 					glVertex2i(px+fgTileSize, py);
 
-					glTexCoord2f(coordx_tile+0.5f,coordy_tile);      
+					glTexCoord2f(coordx_tile+1.0f,coordy_tile);      
 					glVertex2i(px+fgTileSize,py+fgTileSize);
 				
 					glTexCoord2f(coordx_tile,coordy_tile);           

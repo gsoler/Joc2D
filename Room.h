@@ -44,7 +44,7 @@ public:
 	int getWidth(void);
 	int getHeight(void);
 
-	int collides(int x, int y, int tx, int ty);
+	int collides(int x0, int y0, int x1, int y1);
 
 	bool collidesMap(int x, int y);
 
@@ -57,6 +57,6 @@ public:
 	void addEnemy(int x, int y, EnemyType t);
 	void addBullet(int x, int y, int d);
 
-	virtual void process(int x1, int y1, int x2, int y2); 
+	virtual int process(int x0, int y0, int x1, int y1); 
 };
 

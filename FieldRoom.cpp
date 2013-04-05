@@ -17,7 +17,7 @@ void FieldRoom::createBackground()
 	int m = width/bgTileSize;
 
 	Surface s(n, m);
-	s.perlinNoise(m/2, 0);
+	s.perlinNoise(m/3, 0);
 
 	bgDisplayList = glGenLists(1);
 
@@ -30,15 +30,15 @@ void FieldRoom::createBackground()
 
 				double z = s.getZ(j, i); 
 
-				if (z <= -0.5) {
+				if (z <= 0) {
 					coordx_tile = 0.0f;
 					coordy_tile = 0.0f;
 				}
-				else if (z <= 0.0) {
+				else if (z <= 0.1) {
 					coordx_tile = 0.5f;
 					coordy_tile = 0.0f;
 				}
-				else if (z <= 0.5) {
+				else if (z <= 0.2) {
 					coordx_tile = 0.0f;
 					coordy_tile = 0.5f;
 				}

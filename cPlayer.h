@@ -12,7 +12,7 @@ class cPlayer: public cBicho
 private:
 	int coolDown;
 
-	bool Collides(Level& l);
+	bool Collides(Level& l, int offsetx, int offsety);
 
 public:
 	cPlayer();
