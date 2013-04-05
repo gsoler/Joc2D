@@ -84,6 +84,8 @@ void MenuPpal::pintaMenu()
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
 	glLoadIdentity();
+
+	
 		glClear(GL_COLOR_BUFFER_BIT);
 		if(opt == 1) glColor3f(0.0f, 1.0f, 0.0f);
 		else glColor3f(1.0f, 1.0f, 1.0f);
