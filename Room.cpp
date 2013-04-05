@@ -78,13 +78,41 @@ void Room::processBullet(int i)
 	
 	bullets[i].move();
 }
+bool Room::boxCollision(int x00, int y00, int x01, int y01, int x10, int y10, int x11, int y11)
+{
+	if (x11 < x00 || x10 > x01 || y11 < y00 || y10 > y01) return false;
+	return true;
+}
+
+bool Room::processEnemy(Enemy& e) 
+{
+	int x, y;
+	int w, h;
+	e.GetPosition(&x, &y);
+	e.GetWidthHeight(&w,&h);
+	for (int i = 0; i < bullets.size(); ++i) {
+		if (bullets[i].GetState() == STATE_SHOTING)  {
+			int bx, by;
+			int bw, bh;
+			bullets[i].getPosition(&bx, &by);
+			bullets[i].getDimensions(&bw, &bh);
+			if (boxCollision(x,y,x+w,y+h,bx,by,bx+bw,by+bh)) {
+				bullets[i].SetState(STATE_SHOT_END);
+				return false;
+			}
+		}
+	}
+	return true;
+}
 
 void Room::processShooter(int i, int x1, int y1, int x2, int y2)
 {
+	processEnemy(shooters[i]);
 }
 
 void Room::processKamikaze(int i, int x1, int y1, int x2, int y2)
 {
+	processEnemy(kamikazes[i]);
 }
 
 void Room::process(int x1, int y1, int x2, int y2) 
@@ -94,7 +122,7 @@ void Room::process(int x1, int y1, int x2, int y2)
 	for (int i = 0; i < kamikazes.size(); ++i) processKamikaze(i, x1, y1, x2, y2);
 }
 
-void Room::drawRoom(GLuint texBullets, GLuint texEnemy1, GLuint texEnemy2) 
+void Room::drawRoom(GLuint texBullets, GLuint texShooter, GLuint texKamikaze) 
 {
 	glEnable(GL_TEXTURE_2D);
 
@@ -106,8 +134,9 @@ void Room::drawRoom(GLuint texBullets, GLuint texEnemy1, GLuint texEnemy2)
 
 	glDisable(GL_TEXTURE_2D);
 
-	for (int i = 0; i < enemies.size(); ++i) enemies[i].Draw(1);
-	for (int i = 0; i < bullets.size(); ++i) bullets[i].Draw(1);
+	for (int i = 0; i < shooters.size(); ++i) shooters[i].Draw(texShooter);
+	for (int i = 0; i < kamikazes.size(); ++i) kamikazes[i].Draw(texKamikaze);
+	for (int i = 0; i < bullets.size(); ++i) bullets[i].Draw(texBullets);
 
 }
 

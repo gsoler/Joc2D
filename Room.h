@@ -30,7 +30,9 @@ protected:
 
 	void processBullet(int i);
 	void processShooter(int i, int x1, int y1, int x2, int y2);
-	void processKamikazes(int i, int x1, int y1, int x2, int y2);
+	void processKamikaze(int i, int x1, int y1, int x2, int y2);
+	bool processEnemy(Enemy& e);
+	bool boxCollision(int x00, int y00, int x01, int y01, int x10, int y10, int x11, int y11);
 
 public:
 
@@ -46,7 +48,7 @@ public:
 
 	virtual void createRoom(void) = 0;
 
-	virtual void drawRoom(void);
+	virtual void drawRoom(GLuint texBullets, GLuint texEnemy1, GLuint texEnemy2);
 
 	void deleteDisplayLists(void);
 

@@ -61,9 +61,9 @@ void MovingMazeRoom::drawBlock(Vec2 b)
 
 }
 
-void MovingMazeRoom::drawRoom() {
+void MovingMazeRoom::drawRoom(GLuint texBullets, GLuint texEnemy1, GLuint texEnemy2) {
 
-	Room::drawRoom();
+	Room::drawRoom(texBullets, texEnemy1, texEnemy2);
 
 	for (Iter it = blocks.begin(); it != blocks.end(); ++it) {
 		drawBlock(*it);

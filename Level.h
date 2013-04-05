@@ -23,6 +23,7 @@ public:
 
 	void addRoom(int heigth, int width, int bgTileSize, int fgTileSize, GLuint fgTexId, GLuint bgTexId, RoomType roomType);
 	void addBullet(int x, int y, int d);
+	void addEnemy(int x, int y, Room::EnemyType t);
 
 	int getHeight();
 
@@ -30,7 +31,7 @@ public:
 
 	int proccess(int x0, int y0, int x1, int x2);
 
-	void drawLevel();
-	void drawLevel(int bottom, int top);
+	void drawLevel(GLuint texBullets, GLuint texShooter, GLuint texKamikaze);
+	//void drawLevel(int bottom, int top);
 };
 

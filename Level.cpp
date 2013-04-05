@@ -72,6 +72,13 @@ void Level::addBullet(int x, int y, int d)
 
 }
 
+void Level::addEnemy(int x, int y, Room::EnemyType t) {
+	int i = getRoom(0, y);
+	int offset = metrics[i] - level[i]->getHeight();
+
+	level[i]->addEnemy(x, y - offset, t);
+}
+
 int Level::proccess(int x0, int y0, int x1, int y1)
 {
 	int i = getRoom(0, y0);
@@ -82,6 +89,7 @@ int Level::proccess(int x0, int y0, int x1, int y1)
 	return 0;
 }
 
+/*
 void Level::drawLevel(int bottom, int top)
 {
 	//check the constrain
@@ -110,9 +118,9 @@ void Level::drawLevel(int bottom, int top)
 
 		glPopMatrix();
 	}
-}
+}*/
 
-void Level::drawLevel() 
+void Level::drawLevel(GLuint texBullets, GLuint texShooter, GLuint texKamikaze) 
 {
 	glPushMatrix();
 
@@ -120,7 +128,7 @@ void Level::drawLevel()
 	for (int i = 0; i < level.size(); ++i) {
 		glTranslatef(0.0f, T, 0.0f);
 
-		level[i]->drawRoom();
+		level[i]->drawRoom(texBullets, texShooter, texKamikaze);
 		T = level[i]->getHeight();
 	}
 

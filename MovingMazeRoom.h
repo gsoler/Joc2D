@@ -17,7 +17,7 @@ public:
 
 	void createRoom(void);
 
-	void drawRoom(void);
+	void drawRoom(GLuint texBullets, GLuint texEnemy1, GLuint texEnemy2);
 
 	void procces(void);
 };

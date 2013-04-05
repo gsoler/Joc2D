@@ -60,6 +60,9 @@ void cScene::LoadLevels()
 	nivells[0].addRoom(TILE_SIZE*11,TILE_SIZE*11,32,TILE_SIZE, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::MAZE);
 	nivells[0].addRoom(TILE_SIZE*11,TILE_SIZE*11,32,TILE_SIZE, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::FIELD);
 
+	nivells[0].addEnemy(300, 300, Room::KAMIKAZE);
+	nivells[0].addEnemy(300, 320, Room::KAMIKAZE);
+
 	nivells[1].addRoom(TILE_SIZE*11,TILE_SIZE*11,32,TILE_SIZE, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::FIELD);
 	nivells[1].addRoom(TILE_SIZE*11,TILE_SIZE*11,32,TILE_SIZE, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::FIELD);
 	nivells[1].addRoom(TILE_SIZE*11,TILE_SIZE*11,32,TILE_SIZE, data.GetID(IMG_BLOCKS), data.GetID(IMG_BLOCKS), Level::FIELD);
@@ -143,7 +146,7 @@ void cScene::Draw(int h)
 
 	glTranslatef(0.0f, -T*1.0f, 0.0f);
 
-	nivells[currentLevel].drawLevel();
+	nivells[currentLevel].drawLevel(data.GetID(IMG_SHOT), data.GetID(IMG_ENEMY1), data.GetID(IMG_ENEMY2));
 	
 	players[0].Draw(data.GetID(IMG_PLAYER));
 	players[1].Draw(data.GetID(IMG_PLAYER2));
